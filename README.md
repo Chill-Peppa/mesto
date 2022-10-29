@@ -10,7 +10,7 @@ ___
 3. Знакомство с примитивами JavaScript;
 4. Знакомство с Document Object Model в JavaScript.
 
-[Ссылка на проект]
+[Ссылка на проект](https://chill-peppa.github.io/mesto/index.html)
 
 
 
