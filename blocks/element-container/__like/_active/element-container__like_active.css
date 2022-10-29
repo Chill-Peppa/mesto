@@ -1,0 +1,4 @@
+.element-container__like_active {
+    background-color: #fff;
+    background-image: url('./images/like-icon-on.svg');
+}

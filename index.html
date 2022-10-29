@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Интерактивная страница 'Mesto'">
+    <meta name="author" content="Анастасия Боднюк">
+    <title>Mesto</title>
+    <link rel="stylesheet" href="./pages/index.css">
+</head>
+
+<body class="root">
+    <div class="page">
+    
+        <header class="header">
+            <img class="header__logo" src="./images/logo.svg" alt="Логотип сервиса 'Mesto'">
+            <span class="header__line"></span>
+        </header>
+    
+        <main class="content">
+
+            <section class="profile">
+                <div class="profile__area">
+                    <img class="profile__avatar" alt="Аватар профиля" src="./images/avatar.jpg">
+                        <div class="profile-info">
+                            <h1 class="profile-info__name">Жак-Ив Кусто</h1>
+                            <button class="profile-info__edit-button"></button>
+                            <p class="profile-info__description">Исследователь океана</p>
+                        </div>
+                </div>
+                <button class="profile__add-button"></button>
+            </section>
+
+            <section class="elements">
+                <div class="element">
+                    <img class="element__mask" alt="Фото разрушенной башни в горах" src="./images/karachaevsk.jpg">
+                    <div class="element-container">
+                        <p class="element-container__name">Карачаевск</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img class="element__mask" alt="Фото горы" src="./images/elbrus.jpg">
+                    <div class="element-container">
+                        <p class="element-container__name">Гора Эльбрус</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img class="element__mask" alt="Фото гор в горнолыжном комплексе Домбай" src="./images/dombai.jpg">
+                    <div class="element-container">
+                        <p class="element-container__name">Домбай</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="element">
+                    <img class="element__mask" alt="Фото горы" src="./images/elbrus.jpg">
+                   <div class="element-container">
+                        <p class="element-container__name">Гора Эльбрус</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img class="element__mask" alt="Фото гор в горнолыжном комплексе Домбай" src="./images/dombai.jpg">
+                    <div class="element-container">
+                        <p class="element-container__name">Домбай</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="element">
+                    <img class="element__mask" alt="Фото разрушенной башни в горах" src="./images/karachaevsk.jpg">
+                    <div class="element-container">
+                        <p class="element-container__name">Карачаево-Черкессия</p>
+                        <svg class="element-container__like" width="22" height="19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214zM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02z" fill="#000"/>
+                        </svg>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    
+        <footer class="footer">
+            <p class="footer__copy">&copy; 2022 Mesto Russia</p>
+        </footer>
+
+        <div class="popup">
+            <div class="popup__content">
+                <button class="popup__close"></button>
+                <form class="form">
+                    <h2 class="form__heading">Редактировать профиль</h2>
+                    <fieldset class="form__contact-info">
+                        <input type="text" name="firstname" placeholder="Имя пользователя" class="form__item form__item_name" required>
+                        <input type="text" name="career" placeholder="Род деятельности" class="form__item form__item_job" required>
+                    </fieldset>
+                    <fieldset class="form__handlers">
+                         <button type="submit" class="form__button-submit">Сохранить</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="./pages/index.js" defer></script>
+</body>
+</html>

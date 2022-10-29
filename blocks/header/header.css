@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    flex-direction: column;
+    max-width: 880px;
+    width: calc(100% - 400px);
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1080px) {
+    .header {
+        width: calc(100% - 200px);
+    }
+}
+
+@media screen and (max-width: 881px) {
+    .header {
+        width: calc(100% - 100px);
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .header {
+        margin: 0;
+        width: 100%;
+    }
+}
