@@ -5,8 +5,8 @@
     height: 50px;
     border: 1px solid #fff;
     border-radius: 2px;
-    background-color: #000;
-    background-image: url('../../../images/plus-icon.svg');
+    background: transparent;
+    background-image: url(../../../images/plus-icon.svg);
     background-repeat: no-repeat;
     background-position: center;
     align-self: center;
@@ -23,11 +23,13 @@
     .profile__add-button {
         width: 60%;
     }
-}
+  }
 
 @media screen and (max-width: 500px) {
     .profile__add-button {
         width: 100%;
         margin: 0 auto;
+        background-size: 16px 16px;
+        margin-bottom: 36px;
     }
 }

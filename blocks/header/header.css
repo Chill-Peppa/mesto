@@ -4,6 +4,8 @@
     max-width: 880px;
     width: calc(100% - 400px);
     margin: 0 auto;
+    border-bottom: 1px solid rgba(84, 84, 84);
+    margin-bottom: 36.25px;
 }
 
 @media screen and (max-width: 1080px) {

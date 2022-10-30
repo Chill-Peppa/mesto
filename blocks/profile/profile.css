@@ -3,7 +3,7 @@
     justify-content: space-between;
     margin: 0 auto;
     max-width: 880px;
-    margin-bottom: 47px;
+    margin-bottom: 50px;
     width: calc(100% - 400px);
 }
 
@@ -21,8 +21,9 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 475px) {
     .profile {
         width: 282px;
+        margin-bottom: 0;
     }
 }

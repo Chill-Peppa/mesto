@@ -12,9 +12,10 @@
     width: 100%;
     padding: 0;
     text-align: center;
-    margin-top: 48px;
+    margin-top: 45px;
     border-radius: 2px;
     transition: opacity .4s ease-out;
+    cursor: pointer;
 }
 
 .form__button-submit:hover {
@@ -25,5 +26,7 @@
     .form__button-submit {
         height: 46px;
         margin-top: 45px;
+        font-size: 14px;
+        line-height: 1.2;
     }
 }

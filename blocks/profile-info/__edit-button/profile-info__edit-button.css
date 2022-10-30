@@ -11,6 +11,7 @@
     cursor: pointer;
     opacity: 1;
     transition: opacity 0.4s ease-out;
+    transform: translateY(7px);
 }
 
 .profile-info__edit-button:hover {
@@ -21,5 +22,6 @@
     .profile-info__edit-button {
         width: 18px;
         height: 18px;
+        transform: translateX(13px);
     }
 }
