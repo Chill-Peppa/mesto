@@ -2,10 +2,11 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); /*Чтобы нормально центровать попап*/
+    transform: translate(-50%, -50%); /*Чтобы нормально центрировать попап*/
     background-color: #fff;
     color: #000;
     max-width: 430px;
+    width: 100%;
     max-height: 330px;
     height: 100%;
     box-sizing: border-box;
@@ -16,12 +17,14 @@
 
 @media screen and (max-width: 768px) {
     .popup__container {
+        text-align: center;
         padding: 25px 22px;
     }
 }
 
 @media screen and (max-width: 552px) {
     .popup__container {
+        text-align: left;
         max-width: 282px;
         width: 100%;
         max-height: 322px;

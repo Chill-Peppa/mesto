@@ -24,14 +24,9 @@
 
 @media screen and (max-width: 425px) and (min-width: 320px) {
     .footer__copy {
+        margin-left: 19px;
         margin-top: 48px;
         margin-bottom: 36px;
         font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .footer__copy {
-        margin-left: 19px;
     }
 }
