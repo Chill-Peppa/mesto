@@ -139,11 +139,11 @@ const createCard = (element) => {
 
   cardLink.addEventListener('click', () => {
     onOpen(popupPhoto);
-  const photoElemOpen = document.querySelector('.popup__main_content-photo');
+  const photoElemOpen = document.querySelector('.popup__open-photo');
   photoElemOpen.src = cardLink.src;
   photoElemOpen.alt = cardLink.alt;
 
-  const titleElemOpen = document.querySelector('.popup__main_content-caption');
+  const titleElemOpen = document.querySelector('.popup__open-caption');
   titleElemOpen.textContent = cardName.textContent;
   });
 
