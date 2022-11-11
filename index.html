@@ -31,54 +31,8 @@
                 <button type="button" class="profile__add-button"></button>
             </section>
 
-            <section class="elements">
-                <article class="element">
-                    <img class="element__mask" alt="Фото разрушенной башни в горах" src="./images/karachaevsk.jpg">
-                    <div class="element-container">
-                        <h2 class="element-container__name">Карачаевск</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img class="element__mask" alt="Фото горы" src="./images/elbrus.jpg">
-                    <div class="element-container">
-                        <h2 class="element-container__name">Гора Эльбрус</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img class="element__mask" alt="Фото гор в горнолыжном комплексе Домбай" src="./images/dombai.jpg">
-                    <div class="element-container">
-                        <h2 class="element-container__name">Домбай</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
-                
-                <article class="element">
-                    <img class="element__mask" alt="Фото горы" src="./images/elbrus.jpg">
-                   <div class="element-container">
-                        <h2 class="element-container__name">Гора Эльбрус</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img class="element__mask" alt="Фото гор в горнолыжном комплексе Домбай" src="./images/dombai.jpg">
-                    <div class="element-container">
-                        <h2 class="element-container__name">Домбай</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
-
-                <article class="element">
-                    <img class="element__mask" alt="Фото разрушенной башни в горах" src="./images/karachaevsk.jpg">
-                    <div class="element-container">
-                        <h2 class="element-container__name">Карачаево-Черкессия</h2>
-                        <button type="button" class="element-container__like-btn"></button>
-                    </div>
-                </article>
+            <section class="cards">
+                <ul class="elements"></ul>
             </section>
 
         </main>
@@ -87,23 +41,60 @@
             <p class="footer__copy">&copy; 2022 Mesto Russia</p>
         </footer>
 
-        <div class="popup">
+        <div class="popup popup_type_edit-button">
             <div class="popup__container">
                 <button type="button" class="popup__close"></button>
                 <h2 class="popup__heading">Редактировать профиль</h2>
                 <form class="form" name="form">
-                    <fieldset class="form__contact-info">
+                    <fieldset class="form__info">
                         <input type="text" name="firstname" placeholder="Имя пользователя" class="form__item form__item_info_name" required>
                         <input type="text" name="career" placeholder="Род деятельности" class="form__item form__item_info_job" required>
                     </fieldset>
                     <fieldset class="form__handlers">
-                         <button type="submit" class="form__button-submit">Сохранить</button>
+                        <button type="submit" class="form__button-submit">Сохранить</button>
                     </fieldset>
                 </form>
             </div>
         </div>
+
+        <div class="popup popup_type_add-photo">
+            <div class="popup__container">
+                <button type="button" class="popup__close"></button>
+                <h2 class="popup__heading">Новое место</h2>
+                <form class="form" name="form">
+                    <fieldset class="form__info">
+                        <input type="text" name="title" placeholder="Название" class="form__item form__item_info_title" required>
+                        <input type="url" name="link" placeholder="Ссылка на картинку" class="form__item form__item_info_link" required>
+                    </fieldset>
+                    <fieldset class="form__handlers">
+                        <button type="submit" class="form__button-submit">Создать</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+
+        <div class="popup popup_type_open-photo">
+            <div class="popup__main">
+                <button type="button" class="popup__close"></button>
+                <figure class = "popup__main_content">
+                    <img class = "popup__main_content-photo" alt="">
+                    <figcaption class = "popup__main_content-caption"></figcaption>
+                </figure> 
+            </div>
+        </div>
     </div>
 
-    <script src="./scripts/index.js" defer></script>
+        <!--Тут шаблон-->
+    <template id="element-template">
+        <li class="element">
+            <img class="element__mask" alt="" src="">
+            <button type="button" class="element__delete-btn"></button>
+            <div class="element-container">
+                <h2 class="element-container__name"></h2>
+                <button type="button" class="element-container__like-btn"></button>
+            </div>
+        </li>
+    </template>
+<script src="./scripts/index.js" defer></script>
 </body>
 </html>

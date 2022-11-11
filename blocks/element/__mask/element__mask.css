@@ -3,4 +3,7 @@
     border-top-right-radius: 10px;
     max-width: 282px;
     display: block;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    cursor: pointer;
 }
