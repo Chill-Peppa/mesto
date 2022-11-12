@@ -1,4 +1,5 @@
       /* Объявление переменных и поиск элементов */
+      
 //массив для карточек
 import { initialCards } from './array.js';
 
@@ -20,9 +21,9 @@ const nameValue = document.querySelector('.profile-info__name');
 const jobValue = document.querySelector('.profile-info__description');
 
 //переменные для формы edit
-const formElement = popupEdit.querySelector('.form');
-const nameInput = formElement.querySelector('.form__item_info_name');
-const jobInput = formElement.querySelector('.form__item_info_job');
+const formPopupEdit = popupEdit.querySelector('.form');
+const nameInput = formPopupEdit.querySelector('.form__item_info_name');
+const jobInput = formPopupEdit.querySelector('.form__item_info_job');
 
 //переменные для формы add
 const formPopupAdd = popupAdd.querySelector('.form');
@@ -83,7 +84,7 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   linkInput.value = '';
 };
 
-formElement.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
 //функции события удаления карточки и тоггла лайка
