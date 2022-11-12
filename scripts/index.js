@@ -1,8 +1,10 @@
       /* Объявление переменных и поиск элементов */
+//массив для карточек
+import { initialCards } from './array.js';
 
 //переменные для кнопок
-const editButtonElem = document.querySelector('.profile-info__edit-button');
-const addButtonElem = document.querySelector('.profile__add-button');
+const buttonEditProfile = document.querySelector('.profile-info__edit-button');
+const buttonAddElem = document.querySelector('.profile__add-button');
 
 //переменные для pop-up
 const popupEdit = document.querySelector('.popup_type_edit-button');
@@ -18,7 +20,7 @@ const nameValue = document.querySelector('.profile-info__name');
 const jobValue = document.querySelector('.profile-info__description');
 
 //переменные для формы edit
-const formElement = document.querySelector('.form');
+const formElement = popupEdit.querySelector('.form');
 const nameInput = formElement.querySelector('.form__item_info_name');
 const jobInput = formElement.querySelector('.form__item_info_job');
 
@@ -32,34 +34,34 @@ const elementContainer = document.querySelector('.elements');
 
       /* Функции */
 
-function onOpen(popup) {
-    popup.classList.add('popup_opened');
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
 };
 
-function onClose(popup) {
-    popup.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
 };
 
       /* Слушатели */
 
-editButtonElem.addEventListener('click', () => { //на открытие pop-up edit
-    onOpen(popupEdit);
-    nameInput.value = nameValue.textContent;
-    jobInput.value = jobValue.textContent;
+buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
+  openPopup(popupEdit);
+  nameInput.value = nameValue.textContent;
+  jobInput.value = jobValue.textContent;
 });
 popupCloseEdit.addEventListener('click', () => { //на закрытие pop-up edit
-    onClose(popupEdit);
+  closePopup(popupEdit);
 });
 
-addButtonElem.addEventListener('click', () => { //на открытие pop-up add
-    onOpen(popupAdd);
+buttonAddElem.addEventListener('click', () => { //на открытие pop-up add
+  openPopup(popupAdd);
 });
 popupCloseAdd.addEventListener('click', () => { //на закрытие pop-up add
-    onClose(popupAdd);
+  closePopup(popupAdd);
 });
 
 popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up photo
-  onClose(popupPhoto);
+  closePopup(popupPhoto);
 });
 
       /* Обработчики */
@@ -70,47 +72,19 @@ function handleSubmitEditForm (evt) { // Обработчик «отправки
     nameValue.textContent = nameInput.value;
     jobValue.textContent = jobInput.value;
 
-    onClose(popupEdit);
+    closePopup(popupEdit);
 };
 
 const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
   renderCard({ name: titleInput.value,
-               link: linkInput.value});
+               link: linkInput.value });
   titleInput.value = '';
   linkInput.value = '';
 };
 
 formElement.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
-
-//массив карточек
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 
 //функции события удаления карточки и тоггла лайка
 const handleRemoveCard = (evt) => {
@@ -138,7 +112,7 @@ const createCard = (element) => {
   likeButtonElem.addEventListener('click', handleLikeCard);
 
   cardLink.addEventListener('click', () => {
-    onOpen(popupPhoto);
+    openPopup(popupPhoto);
   const photoElemOpen = document.querySelector('.popup__open-photo');
   photoElemOpen.src = cardLink.src;
   photoElemOpen.alt = cardLink.alt;
