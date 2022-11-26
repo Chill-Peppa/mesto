@@ -43,3 +43,34 @@
 @import url('../blocks/form/__item/form__item.css');
 @import url('../blocks/form/__handlers/form__handlers.css');
 @import url('../blocks/form/__button-submit/form__button-submit.css');
+
+.form__button-submit_error { /*кнопка для неактивных полей*/
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+    opacity: 0.2;
+}
+
+.form__button-submit_off:hover {
+    opacity: 1;
+}
+
+.form__item-error {
+    padding: 0;
+    margin-top: 4px;
+    height: 28px;
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+    opacity: 0;
+}
+
+.form__item-error_active {
+    opacity: 1;
+}
+
+.form__item_type_line-error {
+    border-bottom-color: red;
+}

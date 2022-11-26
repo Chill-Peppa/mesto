@@ -12,7 +12,7 @@
     width: 100%;
     padding: 0;
     text-align: center;
-    margin-top: 45px;
+    margin-top: 19px;
     border-radius: 2px;
     transition: opacity .4s ease-out;
     cursor: pointer;
@@ -25,7 +25,7 @@
 @media screen and (max-width: 600px) {
     .form__button-submit {
         height: 46px;
-        margin-top: 45px;
+        margin-top: 19px;
         font-size: 14px;
         line-height: 1.2;
     }

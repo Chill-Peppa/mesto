@@ -78,10 +78,12 @@ function handleSubmitEditForm (evt) { // Обработчик «отправки
 
 const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
+
   renderCard({ name: titleInput.value,
                link: linkInput.value });
   titleInput.value = '';
   linkInput.value = '';
+  //что за рендер кард, поч так записан И! почему тут у нас нет функции клоуз попап? повторить*
 };
 
 formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
@@ -134,3 +136,39 @@ function renderCard (element) {
 initialCards.forEach(function(element) {
   renderCard(element);
 });
+
+
+
+
+//отсюда начну писать код для форм
+
+console.log(nameInput.id); //тут просто в консоль вывела проверить айди
+
+//найдем ошибку через шаблонные строки в нужной форме
+const formError = formPopupEdit.querySelector(`.${nameInput.id}-error`);
+
+//функция для добавления ошибки
+const showInputError = (element, errorMessage) => {
+  element.classList.add('form__item_type_line-error'); //добавили красную линию
+  formError.textContent = errorMessage; //присвоили ошибку браузера через свойство .валидейшенМесседж
+  formError.classList.add('form__item-error_active'); //тут добавили класс ошибки
+}
+
+//функция для удаления ошибки
+const hideInputError = (element) => {
+  element.classList.remove('form__item_type_line-error');
+  formError.classList.remove('form__item-error_active');
+  formError.textContent = ''
+}
+
+//функция для проверки на ошибку
+const checkValidity = () => {
+  if (!nameInput.validity.valid) {
+    showInputError(nameInput, nameInput.validationMessage);
+  } else {
+    hideInputError(nameInput);
+  }
+}
+
+// Вызовем функцию checkValidity на каждый ввод символа
+nameInput.addEventListener('input', checkValidity);
