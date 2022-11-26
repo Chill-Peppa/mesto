@@ -144,31 +144,51 @@ initialCards.forEach(function(element) {
 
 console.log(nameInput.id); //тут просто в консоль вывела проверить айди
 
-//найдем ошибку через шаблонные строки в нужной форме
-const formError = formPopupEdit.querySelector(`.${nameInput.id}-error`);
-
 //функция для добавления ошибки
-const showInputError = (element, errorMessage) => {
-  element.classList.add('form__item_type_line-error'); //добавили красную линию
+const showInputError = (formElement, inputElement, errorMessage) => { //найдем ошибку через шаблонные строки в нужной форме в самой функции
+  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+
+  inputElement.classList.add('form__item_type_line-error'); //добавили красную линию
   formError.textContent = errorMessage; //присвоили ошибку браузера через свойство .валидейшенМесседж
   formError.classList.add('form__item-error_active'); //тут добавили класс ошибки
 }
 
 //функция для удаления ошибки
-const hideInputError = (element) => {
-  element.classList.remove('form__item_type_line-error');
+const hideInputError = (formElement, inputElement) => {
+  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+
+  inputElement.classList.remove('form__item_type_line-error');
   formError.classList.remove('form__item-error_active');
-  formError.textContent = ''
+  formError.textContent = '';
 }
 
 //функция для проверки на ошибку
-const checkValidity = () => {
-  if (!nameInput.validity.valid) {
-    showInputError(nameInput, nameInput.validationMessage);
+const checkValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, nameInput.validationMessage);
   } else {
-    hideInputError(nameInput);
+    hideInputError(formElement, inputElement);
   }
 }
 
-// Вызовем функцию checkValidity на каждый ввод символа
-nameInput.addEventListener('input', checkValidity);
+//функция для добавления слушателя ВСЕМ полям формы
+const setEventListener = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__item')); //нашли все инпуты в форме и сделали из них массив
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkValidity(formElement, inputElement);
+    });
+  });
+};
+
+//функция добавления обработчика всем формам
+const startValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+
+  formList.forEach((formElement) => {
+    setEventListener(formElement);
+  });
+};
+
+startValidation();
