@@ -83,6 +83,8 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
                link: linkInput.value });
   titleInput.value = '';
   linkInput.value = '';
+
+  closePopup(popupAdd);
   //что за рендер кард, поч так записан И! почему тут у нас нет функции клоуз попап? повторить*
 };
 
@@ -137,9 +139,6 @@ initialCards.forEach(function(element) {
   renderCard(element);
 });
 
-
-
-
 //отсюда начну писать код для форм
 
 //linkInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid)); //посмотрела свойство валид у инпута
@@ -166,6 +165,7 @@ const hideInputError = (formElement, inputElement) => {
   errorElement.textContent = '';
 }
 
+
 //функция для проверки ошибки
 const checkValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
@@ -178,16 +178,21 @@ const checkValidity = (formElement, inputElement) => {
 //добавление обработчиков всем полям формы
 const setInputListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.form__item'));
+  const buttonElement = formElement.querySelector('.form__button-submit');
+
+  switchButtonPosition(inputList, buttonElement); //чтобы кнопка была не активна при открытии поля
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkValidity(formElement, inputElement);
+
+      switchButtonPosition(inputList, buttonElement);
     });
   });
 }
 
 //добавление обработчиков для всех форм
-const startValidation = () => {
+const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.form'));
 
   formList.forEach((formElement) => {
@@ -195,4 +200,20 @@ const startValidation = () => {
   });
 }
 
-startValidation();
+//функция для проверки поля на невалидность (нужно для кнопки)
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+}
+
+//функция переключения кнопки
+const switchButtonPosition = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('form__button-submit_error');
+  } else {
+    buttonElement.classList.remove('form__button-submit_error');
+  }
+}
+
+enableValidation();

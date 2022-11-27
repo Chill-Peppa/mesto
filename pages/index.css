@@ -49,10 +49,11 @@
     background-color: #fff;
     border: 1px solid #000;
     opacity: 0.2;
+    pointer-events: none;
 }
 
-.form__button-submit_off:hover {
-    opacity: 1;
+.form__button-submit_error:hover {
+    opacity: 0.2;
 }
 
 .form__item-error {
