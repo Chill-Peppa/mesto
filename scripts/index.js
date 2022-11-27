@@ -142,53 +142,57 @@ initialCards.forEach(function(element) {
 
 //отсюда начну писать код для форм
 
-console.log(nameInput.id); //тут просто в консоль вывела проверить айди
+//linkInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid)); //посмотрела свойство валид у инпута
+titleInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
+console.log(titleInput.id);
+//nameInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
+//jobInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
 
-//функция для добавления ошибки
-const showInputError = (formElement, inputElement, errorMessage) => { //найдем ошибку через шаблонные строки в нужной форме в самой функции
-  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+//функция для нахождения и добавления ошибки
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.add('form__item_type_line-error'); //добавили красную линию
-  formError.textContent = errorMessage; //присвоили ошибку браузера через свойство .валидейшенМесседж
-  formError.classList.add('form__item-error_active'); //тут добавили класс ошибки
+  inputElement.classList.add('form__item_type_line-error'); //добавим класс линии ошибки
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('form__item-error_active'); //добавим класс ошибки
 }
 
 //функция для удаления ошибки
 const hideInputError = (formElement, inputElement) => {
-  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.remove('form__item_type_line-error');
-  formError.classList.remove('form__item-error_active');
-  formError.textContent = '';
+  errorElement.classList.remove('form__item-error_active');
+  errorElement.textContent = '';
 }
 
-//функция для проверки на ошибку
+//функция для проверки ошибки
 const checkValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, nameInput.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
     hideInputError(formElement, inputElement);
   }
 }
 
-//функция для добавления слушателя ВСЕМ полям формы
-const setEventListener = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__item')); //нашли все инпуты в форме и сделали из них массив
+//добавление обработчиков всем полям формы
+const setInputListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__item'));
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
       checkValidity(formElement, inputElement);
     });
   });
-};
+}
 
-//функция добавления обработчика всем формам
+//добавление обработчиков для всех форм
 const startValidation = () => {
   const formList = Array.from(document.querySelectorAll('.form'));
 
   formList.forEach((formElement) => {
-    setEventListener(formElement);
+    setInputListeners(formElement);
   });
-};
+}
 
 startValidation();
