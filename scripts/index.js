@@ -175,7 +175,7 @@ const checkValidity = (formElement, inputElement) => {
   }
 }
 
-//добавление обработчиков всем полям формы
+//функция добавления обработчиков всем полям формы
 const setInputListeners = (formElement) => {
   const inputList = Array.from(formElement.querySelectorAll('.form__item'));
   const buttonElement = formElement.querySelector('.form__button-submit');
@@ -191,7 +191,7 @@ const setInputListeners = (formElement) => {
   });
 }
 
-//добавление обработчиков для всех форм
+//функция добавления обработчиков для всех форм
 const enableValidation = () => {
   const formList = Array.from(document.querySelectorAll('.form'));
 
@@ -211,8 +211,10 @@ const hasInvalidInput = (inputList) => {
 const switchButtonPosition = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('form__button-submit_error');
+    buttonElement.setAttribute('disabled', 'true');
   } else {
     buttonElement.classList.remove('form__button-submit_error');
+    buttonElement.removeAttribute('disabled');
   }
 }
 
