@@ -65,6 +65,26 @@ popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up
   closePopup(popupPhoto);
 });
 
+document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape (хотела тоже через forEach, но не знаю как связать)
+  if (evt.key === 'Escape') {
+    closePopup(popupEdit);
+    closePopup(popupAdd);
+    closePopup(popupPhoto);
+  }
+});
+
+//Закрытие всех попапов по оверлею
+const popups = Array.from(document.querySelectorAll('.popup'));
+console.log(popups);
+
+popups.forEach(function(popupElem) {
+  popupElem.addEventListener('click', (evt) => {
+    if (evt.target === evt.currentTarget) {
+      popupElem.classList.remove('popup_opened');
+    };
+  });
+  });
+
       /* Обработчики */
 
 function handleSubmitEditForm (evt) { // Обработчик «отправки» формы pop-up edit
@@ -85,7 +105,6 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   linkInput.value = '';
 
   closePopup(popupAdd);
-  //что за рендер кард, поч так записан И! почему тут у нас нет функции клоуз попап? повторить*
 };
 
 formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
@@ -139,83 +158,7 @@ initialCards.forEach(function(element) {
   renderCard(element);
 });
 
-//отсюда начну писать код для форм
+//document.addEventListener('keydown', function (evt) {
+//  console.log(evt);
+//});
 
-//linkInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid)); //посмотрела свойство валид у инпута
-titleInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
-console.log(titleInput.id);
-//nameInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
-//jobInput.addEventListener('input', (evt) => console.log(evt.target.validity.valid));
-
-//функция для нахождения и добавления ошибки
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-
-  inputElement.classList.add('form__item_type_line-error'); //добавим класс линии ошибки
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__item-error_active'); //добавим класс ошибки
-}
-
-//функция для удаления ошибки
-const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-
-  inputElement.classList.remove('form__item_type_line-error');
-  errorElement.classList.remove('form__item-error_active');
-  errorElement.textContent = '';
-}
-
-
-//функция для проверки ошибки
-const checkValidity = (formElement, inputElement) => {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-//функция добавления обработчиков всем полям формы
-const setInputListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__item'));
-  const buttonElement = formElement.querySelector('.form__button-submit');
-
-  switchButtonPosition(inputList, buttonElement); //чтобы кнопка была не активна при открытии поля
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener('input', () => {
-      checkValidity(formElement, inputElement);
-
-      switchButtonPosition(inputList, buttonElement);
-    });
-  });
-}
-
-//функция добавления обработчиков для всех форм
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
-
-  formList.forEach((formElement) => {
-    setInputListeners(formElement);
-  });
-}
-
-//функция для проверки поля на невалидность (нужно для кнопки)
-const hasInvalidInput = (inputList) => {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-//функция переключения кнопки
-const switchButtonPosition = (inputList, buttonElement) => {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__button-submit_error');
-    buttonElement.setAttribute('disabled', 'true');
-  } else {
-    buttonElement.classList.remove('form__button-submit_error');
-    buttonElement.removeAttribute('disabled');
-  }
-}
-
-enableValidation();
