@@ -65,17 +65,16 @@ popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up
   closePopup(popupPhoto);
 });
 
-document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape (хотела тоже через forEach, но не знаю как связать)
-  if (evt.key === 'Escape') {
-    closePopup(popupEdit);
-    closePopup(popupAdd);
-    closePopup(popupPhoto);
-  }
-});
+//document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape. (не уверена можно ли так делать)
+//  if (evt.key === 'Escape') {
+//    closePopup(popupEdit);
+//    closePopup(popupAdd);
+//    closePopup(popupPhoto);
+//  }
+//});
 
-//Закрытие всех попапов по оверлею
+//на закрытие всех попапов по оверлею
 const popups = Array.from(document.querySelectorAll('.popup'));
-console.log(popups);
 
 popups.forEach(function(popupElem) {
   popupElem.addEventListener('click', (evt) => {
@@ -83,7 +82,15 @@ popups.forEach(function(popupElem) {
       popupElem.classList.remove('popup_opened');
     };
   });
+});
+
+popups.forEach(function(popupElem) {
+  document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape
+    if (evt.key === 'Escape') {
+      closePopup(popupElem);
+    }
   });
+})
 
       /* Обработчики */
 

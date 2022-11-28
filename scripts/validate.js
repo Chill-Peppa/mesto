@@ -1,18 +1,28 @@
+const validationConf = {
+    formSelector: '.form',
+    inputSelector: '.form__item',
+    submitButtonSelector: '.form__button-submit',
+    inactiveButtonClass: 'form__button-submit_error',
+    inputErrorClass: 'form__item_type_line-error',
+    errorClass: 'form__item-error_active'
+  }
+
+
 //функция для нахождения и добавления ошибки
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.add('form__item_type_line-error'); //добавим класс линии ошибки
+  inputElement.classList.add(validationConf.inputErrorClass); //добавим класс линии ошибки
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__item-error_active'); //добавим класс ошибки
+  errorElement.classList.add(validationConf.errorClass); //добавим класс ошибки
 }
 
 //функция для удаления ошибки
 const hideInputError = (formElement, inputElement) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
-  inputElement.classList.remove('form__item_type_line-error');
-  errorElement.classList.remove('form__item-error_active');
+  inputElement.classList.remove(validationConf.inputErrorClass);
+  errorElement.classList.remove(validationConf.errorClass);
   errorElement.textContent = '';
 }
 
@@ -28,8 +38,8 @@ const checkValidity = (formElement, inputElement) => {
 
 //функция добавления обработчиков всем полям формы
 const setInputListeners = (formElement) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__item'));
-  const buttonElement = formElement.querySelector('.form__button-submit');
+  const inputList = Array.from(formElement.querySelectorAll(validationConf.inputSelector));
+  const buttonElement = formElement.querySelector(validationConf.submitButtonSelector);
 
   switchButtonPosition(inputList, buttonElement); //чтобы кнопка была не активна при открытии поля
 
@@ -43,8 +53,8 @@ const setInputListeners = (formElement) => {
 }
 
 //функция добавления обработчиков для всех форм
-const enableValidation = () => {
-  const formList = Array.from(document.querySelectorAll('.form'));
+const enableValidation = (validationConf) => {
+  const formList = Array.from(document.querySelectorAll(validationConf.formSelector));
 
   formList.forEach((formElement) => {
     setInputListeners(formElement);
@@ -61,20 +71,13 @@ const hasInvalidInput = (inputList) => {
 //функция переключения кнопки
 const switchButtonPosition = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('form__button-submit_error');
+    buttonElement.classList.add(validationConf.inactiveButtonClass);
     buttonElement.setAttribute('disabled', 'true');
   } else {
-    buttonElement.classList.remove('form__button-submit_error');
+    buttonElement.classList.remove(validationConf.inactiveButtonClass);
     buttonElement.removeAttribute('disabled');
   }
 }
 
-//тут этот объект с рандомнымии параметрами
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+//тут вызов enableValidation
+enableValidation(validationConf);

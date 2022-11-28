@@ -52,10 +52,6 @@
     pointer-events: none;
 }
 
-.form__button-submit_error:hover {
-    opacity: 0.2;
-}
-
 .form__item-error {
     padding: 0;
     margin-top: 4px;
