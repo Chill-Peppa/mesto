@@ -65,6 +65,14 @@ popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up
   closePopup(popupPhoto);
 });
 
+//document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape
+//  if (evt.key === 'Escape') {                         //(не уверена можно ли так делать, но так тоже работало)
+//    closePopup(popupEdit);
+//    closePopup(popupAdd);
+//    closePopup(popupPhoto);
+//  }
+//});
+
 const popups = Array.from(document.querySelectorAll('.popup')); 
 
 popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею
