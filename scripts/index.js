@@ -33,7 +33,7 @@ const linkInput = formPopupAdd.querySelector('.form__item_info_link');
 //переменные для карточек
 const elementContainer = document.querySelector('.elements');
 
-      /* Функции */
+      /*----------Функции----------*/
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
