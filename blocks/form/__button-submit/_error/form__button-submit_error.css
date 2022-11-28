@@ -1,0 +1,7 @@
+.form__button-submit_error { /*кнопка для неактивных полей*/
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #000;
+    opacity: 0.2;
+    pointer-events: none;
+}

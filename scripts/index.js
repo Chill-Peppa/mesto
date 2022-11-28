@@ -1,4 +1,4 @@
-      /* Объявление переменных и поиск элементов */
+      /*---------Объявление переменных и поиск элементов---------*/
       
 //массив для карточек
 import { initialCards } from './array.js';
@@ -43,7 +43,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
-      /* Слушатели */
+      /*---------Слушатели---------*/
 
 buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
   openPopup(popupEdit);
@@ -65,18 +65,9 @@ popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up
   closePopup(popupPhoto);
 });
 
-//document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape. (не уверена можно ли так делать)
-//  if (evt.key === 'Escape') {
-//    closePopup(popupEdit);
-//    closePopup(popupAdd);
-//    closePopup(popupPhoto);
-//  }
-//});
+const popups = Array.from(document.querySelectorAll('.popup')); 
 
-//на закрытие всех попапов по оверлею
-const popups = Array.from(document.querySelectorAll('.popup'));
-
-popups.forEach(function(popupElem) {
+popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею
   popupElem.addEventListener('click', (evt) => {
     if (evt.target === evt.currentTarget) {
       popupElem.classList.remove('popup_opened');
@@ -92,7 +83,7 @@ popups.forEach(function(popupElem) {
   });
 })
 
-      /* Обработчики */
+      /*---------Обработчики---------*/
 
 function handleSubmitEditForm (evt) { // Обработчик «отправки» формы pop-up edit
     evt.preventDefault();
@@ -165,7 +156,4 @@ initialCards.forEach(function(element) {
   renderCard(element);
 });
 
-//document.addEventListener('keydown', function (evt) {
-//  console.log(evt);
-//});
 

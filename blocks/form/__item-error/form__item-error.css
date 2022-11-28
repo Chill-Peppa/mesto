@@ -1,0 +1,11 @@
+.form__item-error {
+    padding: 0;
+    margin-top: 4px;
+    height: 28px;
+    color: #ff0000;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+    opacity: 0;
+}
