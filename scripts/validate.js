@@ -53,7 +53,7 @@ const setInputListeners = (formElement) => {
 }
 
 //функция добавления обработчиков для всех форм
-const enableValidation = (validationConf) => {
+export const enableValidation = (validationConf) => {
   const formList = Array.from(document.querySelectorAll(validationConf.formSelector));
 
   formList.forEach((formElement) => {
@@ -78,6 +78,3 @@ const switchButtonPosition = (inputList, buttonElement) => {
     buttonElement.removeAttribute('disabled');
   }
 }
-
-//тут вызов enableValidation
-enableValidation(validationConf);

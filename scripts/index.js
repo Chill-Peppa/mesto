@@ -1,7 +1,21 @@
-      /*---------Объявление переменных и поиск элементов---------*/
+      /*---------Импорт---------*/
       
 //массив для карточек
 import { initialCards } from './array.js';
+
+//импорт для валидации
+const validationConf = {
+  formSelector: '.form',
+  inputSelector: '.form__item',
+  submitButtonSelector: '.form__button-submit',
+  inactiveButtonClass: 'form__button-submit_error',
+  inputErrorClass: 'form__item_type_line-error',
+  errorClass: 'form__item-error_active'
+}
+
+import { enableValidation } from './validate.js';
+
+      /*---------Объявление переменных и поиск элементов---------*/
 
 //переменные для кнопок
 const buttonEditProfile = document.querySelector('.profile-info__edit-button');
@@ -15,6 +29,9 @@ const popupPhoto = document.querySelector('.popup_type_open-photo');
 const popupCloseEdit = popupEdit.querySelector('.popup__close');
 const popupCloseAdd = popupAdd.querySelector('.popup__close');
 const popupClosePhoto = popupPhoto.querySelector('.popup__close');
+
+const photoElemOpen = document.querySelector('.popup__open-photo');
+const titleElemOpen = document.querySelector('.popup__open-caption');
 
 //переменные для профиля
 const nameValue = document.querySelector('.profile-info__name');
@@ -143,11 +160,10 @@ const createCard = (element) => {
 
   cardLink.addEventListener('click', () => {
     openPopup(popupPhoto);
-  const photoElemOpen = document.querySelector('.popup__open-photo');
-  photoElemOpen.src = cardLink.src;
-  photoElemOpen.alt = cardLink.alt;
 
-  const titleElemOpen = document.querySelector('.popup__open-caption');
+  photoElemOpen.src = element.link;
+  photoElemOpen.alt = element.name;
+
   titleElemOpen.textContent = cardName.textContent;
   });
 
@@ -164,4 +180,5 @@ initialCards.forEach(function(element) {
   renderCard(element);
 });
 
-
+//тут вызов enableValidation
+enableValidation(validationConf);

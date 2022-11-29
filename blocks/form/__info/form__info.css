@@ -1,9 +1,0 @@
-.form__info {
-    padding: 0;
-    margin: 0;
-    border: none;
-    display: flex;
-    flex-direction: column;
-    max-width: 358px;
-    width: 100%;
-}
