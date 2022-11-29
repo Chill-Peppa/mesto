@@ -9,7 +9,7 @@ const validationConf = {
 
 
 //функция для нахождения и добавления ошибки
-const showInputError = (formElement, inputElement, errorMessage) => {
+const showInputError = (formElement, inputElement, errorMessage, validationConf) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.add(validationConf.inputErrorClass); //добавим класс линии ошибки
@@ -18,7 +18,7 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 }
 
 //функция для удаления ошибки
-const hideInputError = (formElement, inputElement) => {
+const hideInputError = (formElement, inputElement, validationConf) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
 
   inputElement.classList.remove(validationConf.inputErrorClass);
@@ -28,26 +28,26 @@ const hideInputError = (formElement, inputElement) => {
 
 
 //функция для проверки ошибки
-const checkValidity = (formElement, inputElement) => {
+const checkValidity = (formElement, inputElement, validationConf) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, validationConf);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, validationConf);
   }
 }
 
 //функция добавления обработчиков всем полям формы
-const setInputListeners = (formElement) => {
+const setInputListeners = (formElement, validationConf) => {
   const inputList = Array.from(formElement.querySelectorAll(validationConf.inputSelector));
   const buttonElement = formElement.querySelector(validationConf.submitButtonSelector);
 
-  switchButtonPosition(inputList, buttonElement); //чтобы кнопка была не активна при открытии поля
+  switchButtonPosition(inputList, buttonElement, validationConf); //чтобы кнопка была не активна при открытии поля
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', () => {
-      checkValidity(formElement, inputElement);
+      checkValidity(formElement, inputElement, validationConf);
 
-      switchButtonPosition(inputList, buttonElement);
+      switchButtonPosition(inputList, buttonElement, validationConf);
     });
   });
 }
@@ -57,7 +57,7 @@ export const enableValidation = (validationConf) => {
   const formList = Array.from(document.querySelectorAll(validationConf.formSelector));
 
   formList.forEach((formElement) => {
-    setInputListeners(formElement);
+    setInputListeners(formElement, validationConf);
   });
 }
 
@@ -69,7 +69,7 @@ const hasInvalidInput = (inputList) => {
 }
 
 //функция переключения кнопки
-const switchButtonPosition = (inputList, buttonElement) => {
+const switchButtonPosition = (inputList, buttonElement, validationConf) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validationConf.inactiveButtonClass);
     buttonElement.setAttribute('disabled', 'true');
