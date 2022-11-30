@@ -67,35 +67,21 @@ buttonEditProfile.addEventListener('click', () => { //на открытие pop-
   nameInput.value = nameValue.textContent;
   jobInput.value = jobValue.textContent;
 });
-popupCloseEdit.addEventListener('click', () => { //на закрытие pop-up edit
-  closePopup(popupEdit);
-});
 
 buttonAddElem.addEventListener('click', () => { //на открытие pop-up add
   openPopup(popupAdd);
 });
-popupCloseAdd.addEventListener('click', () => { //на закрытие pop-up add
-  closePopup(popupAdd);
-});
 
-popupClosePhoto.addEventListener('click', () => { //на закрытие pop-up photo
-  closePopup(popupPhoto);
-});
 
-//document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape
-//  if (evt.key === 'Escape') {                         //(не уверена можно ли так делать, но так тоже работало)
-//    closePopup(popupEdit);
-//    closePopup(popupAdd);
-//    closePopup(popupPhoto);
-//  }
-//});
+//Огромное спасибо за развернутые комментарии 
+//и ответы на мои вопросы!!
 
 const popups = Array.from(document.querySelectorAll('.popup')); 
 
 popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею
-  popupElem.addEventListener('click', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      popupElem.classList.remove('popup_opened');
+  popupElem.addEventListener('mousedown', (evt) => { //mousedown, чтобы случайно не закрыть по оверлею
+    if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
+      closePopup(popupElem);
     };
   });
 });
@@ -106,7 +92,7 @@ popups.forEach(function(popupElem) {
       closePopup(popupElem);
     }
   });
-})
+});
 
       /*---------Обработчики---------*/
 
@@ -124,8 +110,13 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 
   renderCard({ name: titleInput.value,
                link: linkInput.value });
+
   titleInput.value = '';
   linkInput.value = '';
+
+  const submitterBtn = evt.submitter;
+  submitterBtn.classList.add(validationConf.inactiveButtonClass);
+  submitterBtn.setAttribute('disabled', 'true');
 
   closePopup(popupAdd);
 };

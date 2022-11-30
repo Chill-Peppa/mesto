@@ -1,13 +1,3 @@
-const validationConf = {
-    formSelector: '.form',
-    inputSelector: '.form__item',
-    submitButtonSelector: '.form__button-submit',
-    inactiveButtonClass: 'form__button-submit_error',
-    inputErrorClass: 'form__item_type_line-error',
-    errorClass: 'form__item-error_active'
-  }
-
-
 //функция для нахождения и добавления ошибки
 const showInputError = (formElement, inputElement, errorMessage, validationConf) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
