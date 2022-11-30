@@ -26,12 +26,9 @@ const popupEdit = document.querySelector('.popup_type_edit-button');
 const popupAdd = document.querySelector('.popup_type_add-photo');
 const popupPhoto = document.querySelector('.popup_type_open-photo');
 
-const popupCloseEdit = popupEdit.querySelector('.popup__close');
-const popupCloseAdd = popupAdd.querySelector('.popup__close');
-const popupClosePhoto = popupPhoto.querySelector('.popup__close');
-
 const photoElemOpen = document.querySelector('.popup__open-photo');
 const titleElemOpen = document.querySelector('.popup__open-caption');
+const popups = Array.from(document.querySelectorAll('.popup')); 
 
 //переменные для профиля
 const nameValue = document.querySelector('.profile-info__name');
@@ -54,10 +51,12 @@ const elementContainer = document.querySelector('.elements');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEsc);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc);
 };
 
       /*---------Слушатели---------*/
@@ -74,25 +73,22 @@ buttonAddElem.addEventListener('click', () => { //на открытие pop-up a
 
 
 //Огромное спасибо за развернутые комментарии 
-//и ответы на мои вопросы!!
+//и ответы на мои вопросы!
 
-const popups = Array.from(document.querySelectorAll('.popup')); 
-
-popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею
-  popupElem.addEventListener('mousedown', (evt) => { //mousedown, чтобы случайно не закрыть по оверлею
+popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею и крестику
+  popupElem.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
       closePopup(popupElem);
     };
   });
 });
 
-popups.forEach(function(popupElem) {
-  document.addEventListener('keydown', function (evt) { //на закрытие всех pop-up по escape
-    if (evt.key === 'Escape') {
-      closePopup(popupElem);
-    }
-  });
-});
+function closeByEsc(evt) { //функция на закрытие pop-up по escape
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 
       /*---------Обработчики---------*/
 
