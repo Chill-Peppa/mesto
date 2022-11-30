@@ -72,8 +72,8 @@ buttonAddElem.addEventListener('click', () => { //на открытие pop-up a
 });
 
 
-//Огромное спасибо за развернутые комментарии 
-//и ответы на мои вопросы!
+//Огромное спасибо за ответы на мои вопросы!!
+
 
 popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею и крестику
   popupElem.addEventListener('mousedown', (evt) => {
