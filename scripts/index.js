@@ -107,8 +107,7 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   renderCard({ name: titleInput.value,
                link: linkInput.value });
 
-  titleInput.value = '';
-  linkInput.value = '';
+  formPopupAdd.reset();
 
   const submitterBtn = evt.submitter;
   submitterBtn.classList.add(validationConf.inactiveButtonClass);
