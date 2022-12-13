@@ -1,7 +1,7 @@
       /*---------Импорт---------*/
-      
-//массив для карточек
+
 import { initialCards } from './array.js';
+import Card from './card.js';
 
 //импорт для валидации
 const validationConf = {
@@ -59,6 +59,13 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closeByEsc);
 };
 
+function closeByEsc(evt) { //функция на закрытие pop-up по escape
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
       /*---------Слушатели---------*/
 
 buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
@@ -71,11 +78,7 @@ buttonAddElem.addEventListener('click', () => { //на открытие pop-up a
   openPopup(popupAdd);
 });
 
-
-//Огромное спасибо за ответы на мои вопросы!!
-
-
-popups.forEach(function(popupElem) { //на закрытие всех попапов по оверлею и крестику
+popups.forEach(function(popupElem) { //перебор на закрытие всех попапов по оверлею и крестику
   popupElem.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
       closePopup(popupElem);
@@ -83,16 +86,9 @@ popups.forEach(function(popupElem) { //на закрытие всех попап
   });
 });
 
-function closeByEsc(evt) { //функция на закрытие pop-up по escape
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
-
       /*---------Обработчики---------*/
 
-function handleSubmitEditForm (evt) { // Обработчик «отправки» формы pop-up edit
+function handleSubmitEditForm (evt) { // Функция-обработчик «отправки» формы pop-up edit
     evt.preventDefault();
 
     nameValue.textContent = nameInput.value;
@@ -101,7 +97,21 @@ function handleSubmitEditForm (evt) { // Обработчик «отправки
     closePopup(popupEdit);
 };
 
-const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
+formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+
+//перебор массива с карточками
+initialCards.forEach((item) => {
+  const card = new Card(item.name, item.link);
+  const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
+
+  elementContainer.prepend(cardElement);// Добавляем в DOM
+});
+
+
+
+
+//С этого момента начинается код с карточками
+/*const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
 
   renderCard({ name: titleInput.value,
@@ -116,7 +126,6 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   closePopup(popupAdd);
 };
 
-formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
 //функции события удаления карточки и тоггла лайка
@@ -164,7 +173,7 @@ function renderCard (element) {
 //рендер всех карточек
 initialCards.forEach(function(element) {
   renderCard(element);
-});
+});*/
 
 //тут вызов enableValidation
 enableValidation(validationConf);
