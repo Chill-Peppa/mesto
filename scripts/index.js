@@ -78,6 +78,8 @@ buttonAddElem.addEventListener('click', () => { //на открытие pop-up a
   openPopup(popupAdd);
 });
 
+formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+
 popups.forEach(function(popupElem) { //перебор на закрытие всех попапов по оверлею и крестику
   popupElem.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
@@ -97,15 +99,14 @@ function handleSubmitEditForm (evt) { // Функция-обработчик «�
     closePopup(popupEdit);
 };
 
-formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
-
 //перебор массива с карточками
 initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link);
+  const card = new Card(item,'#element-template'); //!!!пока не понимаю нужен ли этот функционал с элемент-темплейт
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
-
+  
   elementContainer.prepend(cardElement);// Добавляем в DOM
 });
+
 
 
 
