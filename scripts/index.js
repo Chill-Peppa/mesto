@@ -1,7 +1,8 @@
       /*---------Импорт---------*/
 
 import { initialCards } from './array.js';
-import Card from './card.js';
+import { openPopup } from './utils.js';
+import Card from './Card.js';
 
 //импорт для валидации
 const validationConf = {
@@ -24,10 +25,9 @@ const buttonAddElem = document.querySelector('.profile__add-button');
 //переменные для pop-up
 const popupEdit = document.querySelector('.popup_type_edit-button');
 const popupAdd = document.querySelector('.popup_type_add-photo');
-const popupPhoto = document.querySelector('.popup_type_open-photo');
-
-const photoElemOpen = document.querySelector('.popup__open-photo');
-const titleElemOpen = document.querySelector('.popup__open-caption');
+//const popupPhoto = document.querySelector('.popup_type_open-photo');
+//const photoElemOpen = document.querySelector('.popup__open-photo');
+//const titleElemOpen = document.querySelector('.popup__open-caption');
 const popups = Array.from(document.querySelectorAll('.popup')); 
 
 //переменные для профиля
@@ -49,10 +49,10 @@ const elementContainer = document.querySelector('.elements');
 
       /*----------Функции----------*/
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEsc);
-};
+//function openPopup(popup) {
+//  popup.classList.add('popup_opened');
+//  document.addEventListener('keydown', closeByEsc);
+//};
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -102,10 +102,9 @@ function handleSubmitEditForm (evt) { // Функция-обработчик «�
 
 const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
-
+  
   const card = new Card({ name: titleInput.value,
-                          link: linkInput.value},
-                          '#element-template');
+                          link: linkInput.value });
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
   
   elementContainer.prepend(cardElement);
@@ -123,7 +122,7 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
 
 //перебор массива с карточками
 initialCards.forEach((item) => {
-  const card = new Card(item,'#element-template'); //!!!пока не понимаю нужен ли этот функционал с элемент-темплейт
+  const card = new Card(item);
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
   
   elementContainer.prepend(cardElement);// Добавляем в DOM

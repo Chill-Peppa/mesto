@@ -1,31 +1,21 @@
+import { openPopup, popupPhoto, photoElemOpen, titleElemOpen } from "./utils.js";
+
 export default class Card {
 
-    constructor(data, templateSelector) {
+    constructor(data) {
         this._name = data.name;
         this._link = data.link;
-        this._templateSelector = templateSelector;//!!!возможно не нужен
     }
     
     //метод, чтобы вернуть разметку
     _getTemplate() {
         const cardElem = document
-        .querySelector(this._templateSelector) //вместо #element-template
+        .querySelector('#element-template')
         .content
         .querySelector('.element')
         .cloneNode(true);
 
         return cardElem;
-    }
-
-    //метод для генерации карточек
-    generateCard() {
-        this._element = this._getTemplate();
-        this._setEventListeners();
-
-        this._element.querySelector('.element-container__name').textContent = this._name;
-        this._element.querySelector('.element__mask').src = this._link;
-
-        return this._element;
     }
 
     //метод, в котором будут все слушатели
@@ -36,6 +26,9 @@ export default class Card {
         this._element.querySelector('.element__delete-btn').addEventListener('click', () => {
             this._handleRemoveCard();
         });
+        this._element.querySelector('.element__mask').addEventListener('click', () => {
+            this._handleOpenPopupPhoto();
+        })
     }
 
     //метод тоггла лайка
@@ -46,6 +39,27 @@ export default class Card {
     //метод удаления карточки
     _handleRemoveCard() {
         this._element.querySelector('.element__delete-btn').closest('.element').remove();
+        this._element = null;
+    }
+
+    //метод для открытия попапа
+    _handleOpenPopupPhoto() {
+        photoElemOpen.src = this._link;
+        titleElemOpen.textContent = this._name;
+        titleElemOpen.alt = this._name;
+
+        openPopup(popupPhoto);      
+  }
+
+      //метод для генерации карточек
+      generateCard() {
+        this._element = this._getTemplate();
+        this._setEventListeners();
+
+        this._element.querySelector('.element-container__name').textContent = this._name;
+        this._element.querySelector('.element__mask').src = this._link;
+
+        return this._element;
     }
 
 }
