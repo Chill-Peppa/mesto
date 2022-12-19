@@ -1,20 +1,10 @@
       /*---------Импорт---------*/
 
 import { initialCards } from './array.js';
-import { openPopup } from './utils.js';
 import Card from './Card.js';
-
-//импорт для валидации
-const validationConf = {
-  formSelector: '.form',
-  inputSelector: '.form__item',
-  submitButtonSelector: '.form__button-submit',
-  inactiveButtonClass: 'form__button-submit_error',
-  inputErrorClass: 'form__item_type_line-error',
-  errorClass: 'form__item-error_active'
-}
-
-import { enableValidation } from './validate.js';
+import validationConf from './config.js';
+//import { enableValidation } from './validate.js';
+import FormValidator from './FormValidator.js'
 
       /*---------Объявление переменных и поиск элементов---------*/
 
@@ -25,10 +15,10 @@ const buttonAddElem = document.querySelector('.profile__add-button');
 //переменные для pop-up
 const popupEdit = document.querySelector('.popup_type_edit-button');
 const popupAdd = document.querySelector('.popup_type_add-photo');
-//const popupPhoto = document.querySelector('.popup_type_open-photo');
-//const photoElemOpen = document.querySelector('.popup__open-photo');
-//const titleElemOpen = document.querySelector('.popup__open-caption');
-const popups = Array.from(document.querySelectorAll('.popup')); 
+const popups = Array.from(document.querySelectorAll('.popup'));
+const popupPhoto = document.querySelector('.popup_type_open-photo');
+const photoElemOpen = document.querySelector('.popup__open-photo');
+const titleElemOpen = document.querySelector('.popup__open-caption');
 
 //переменные для профиля
 const nameValue = document.querySelector('.profile-info__name');
@@ -49,10 +39,10 @@ const elementContainer = document.querySelector('.elements');
 
       /*----------Функции----------*/
 
-//function openPopup(popup) {
-//  popup.classList.add('popup_opened');
-//  document.addEventListener('keydown', closeByEsc);
-//};
+function openPopup(popup) {
+        popup.classList.add('popup_opened');
+        document.addEventListener('keydown', closeByEsc);
+      };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -122,16 +112,11 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
 
 //перебор массива с карточками
 initialCards.forEach((item) => {
-  const card = new Card(item);
+  const card = new Card(item, openPopup);
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
   
   elementContainer.prepend(cardElement);// Добавляем в DOM
 });
-
-
-
-
-
 
 //С этого момента начинается код с карточками
 /*const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
@@ -199,4 +184,10 @@ initialCards.forEach(function(element) {
 });*/
 
 //тут вызов enableValidation
-enableValidation(validationConf);
+//enableValidation(validationConf);
+//тут экземпляры классов для каждой формы
+const validationFormPopupEdit = new FormValidator(validationConf, '.popup_type_edit-photo'); //нужно еще написать второй экземпляр
+validationFormPopupEdit.enableValidation();
+
+const validationFormPopupAdd = new FormValidator(validationConf, '.popup_type_add-photo'); //нужно еще написать второй экземпляр
+validationFormPopupAdd.enableValidation();
