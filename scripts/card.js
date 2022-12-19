@@ -1,12 +1,12 @@
-//import { openPopup, popupPhoto, photoElemOpen, titleElemOpen } from "./utils.js";
-
 export default class Card {
 
-    constructor(data, openPopup) {
+    constructor(data, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
         this._name = data.name;
         this._link = data.link;
+        this._popupPhoto = popupPhoto;
+        this._photoElemOpen = photoElemOpen;
+        this._titleElemOpen = titleElemOpen;
         this._openPopup = openPopup;
-
     }
     
     //метод, чтобы вернуть разметку
@@ -33,14 +33,11 @@ export default class Card {
 
     //метод для открытия попапа
    _handleOpenPopupPhoto() {
-        const popupPhoto = document.querySelector('.popup_type_open-photo');
-        const photoElemOpen = document.querySelector('.popup__open-photo');
-        const titleElemOpen = document.querySelector('.popup__open-caption');
-        photoElemOpen.src = this._link;
-        titleElemOpen.textContent = this._name;
-        titleElemOpen.alt = this._name;
+        this._photoElemOpen.src = this._link;
+        this._titleElemOpen.textContent = this._name;
+        this._titleElemOpen.alt = this._name;
 
-        this._openPopup(popupPhoto);      
+        this._openPopup(this._popupPhoto);      
   }
 
     //метод, в котором будут все слушатели

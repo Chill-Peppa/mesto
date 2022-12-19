@@ -16,9 +16,11 @@ const buttonAddElem = document.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popup_type_edit-button');
 const popupAdd = document.querySelector('.popup_type_add-photo');
 const popups = Array.from(document.querySelectorAll('.popup'));
+
+//переменные попапФото для конструктора класса
 const popupPhoto = document.querySelector('.popup_type_open-photo');
-const photoElemOpen = document.querySelector('.popup__open-photo');
-const titleElemOpen = document.querySelector('.popup__open-caption');
+const photoElemOpen = popupPhoto.querySelector('.popup__open-photo');
+const titleElemOpen = popupPhoto.querySelector('.popup__open-caption');
 
 //переменные для профиля
 const nameValue = document.querySelector('.profile-info__name');
@@ -78,7 +80,6 @@ popups.forEach(function(popupElem) { //перебор на закрытие вс
   });
 });
 
-
       /*---------Обработчики---------*/
 
 function handleSubmitEditForm (evt) { // Функция-обработчик «отправки» формы pop-up edit
@@ -111,77 +112,13 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
 //перебор массива с карточками
+//и создание экземпляров класса Card
 initialCards.forEach((item) => {
-  const card = new Card(item, openPopup);
+  const card = new Card(item, popupPhoto, photoElemOpen, titleElemOpen, openPopup);
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
   
   elementContainer.prepend(cardElement);// Добавляем в DOM
 });
-
-//С этого момента начинается код с карточками
-/*const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
-  evt.preventDefault();
-
-  renderCard({ name: titleInput.value,
-               link: linkInput.value });
-
-  formPopupAdd.reset();
-
-  const submitterBtn = evt.submitter;
-  submitterBtn.classList.add(validationConf.inactiveButtonClass);
-  submitterBtn.setAttribute('disabled', 'true');
-
-  closePopup(popupAdd);
-};
-
-formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
-
-//функции события удаления карточки и тоггла лайка
-const handleRemoveCard = (evt) => {
-  evt.target.closest('.element').remove();
-};
-const handleLikeCard = (evt) => {
-  evt.target.classList.toggle('element-container__like-btn_active');
-};
-
-//функция генерации карточки
-const elementTemplate = document.querySelector('#element-template').content;
-
-const createCard = (element) => {
-  const cardElement = elementTemplate.cloneNode(true);
-
-  const cardName = cardElement.querySelector('.element-container__name');
-  cardName.textContent = element.name;
-  const cardLink = cardElement.querySelector('.element__mask');
-  cardLink.src = element.link;
-  cardLink.alt = element.name;
-
-  const removeCardButton = cardElement.querySelector('.element__delete-btn'); //выбираем кнопку удаления
-  removeCardButton.addEventListener('click', handleRemoveCard);
-  const likeButtonElem = cardElement.querySelector('.element-container__like-btn'); //выбираем кнопку лайка
-  likeButtonElem.addEventListener('click', handleLikeCard);
-
-  cardLink.addEventListener('click', () => {
-    openPopup(popupPhoto);
-
-  photoElemOpen.src = element.link;
-  photoElemOpen.alt = element.name;
-
-  titleElemOpen.textContent = cardName.textContent;
-  });
-
-  return(cardElement);
-}
-
-//функция добавление карточки в начало массива
-function renderCard (element) {
-  elementContainer.prepend(createCard(element));
-};
-
-//рендер всех карточек
-initialCards.forEach(function(element) {
-  renderCard(element);
-});*/
 
 //тут вызов enableValidation
 //enableValidation(validationConf);

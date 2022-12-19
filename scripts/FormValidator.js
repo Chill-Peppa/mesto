@@ -10,7 +10,7 @@
 export default class FormValidator {
 
     constructor(validationConf, formSelector) {
-        this._validationConf = validationConf;
+        this._validationConf = validationConf; //почему передаем так, а не ключ?
 
         this._formSelector = formSelector;
     }
