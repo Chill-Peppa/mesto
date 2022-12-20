@@ -3,7 +3,6 @@
 import { initialCards } from './array.js';
 import Card from './Card.js';
 import validationConf from './config.js';
-//import { enableValidation } from './validate.js';
 import FormValidator from './FormValidator.js'
 
       /*---------Объявление переменных и поиск элементов---------*/
@@ -120,11 +119,9 @@ initialCards.forEach((item) => {
   elementContainer.prepend(cardElement);// Добавляем в DOM
 });
 
-//тут вызов enableValidation
-//enableValidation(validationConf);
 //тут экземпляры классов для каждой формы
-const validationFormPopupEdit = new FormValidator(validationConf, '.popup_type_edit-photo'); //нужно еще написать второй экземпляр
+const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit); //нужно еще написать второй экземпляр
 validationFormPopupEdit.enableValidation();
 
-const validationFormPopupAdd = new FormValidator(validationConf, '.popup_type_add-photo'); //нужно еще написать второй экземпляр
+const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd); //нужно еще написать второй экземпляр
 validationFormPopupAdd.enableValidation();

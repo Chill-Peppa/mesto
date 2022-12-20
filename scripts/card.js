@@ -32,13 +32,13 @@ export default class Card {
     }
 
     //метод для открытия попапа
-   _handleOpenPopupPhoto() {
+    _handleOpenPopupPhoto() {
         this._photoElemOpen.src = this._link;
         this._titleElemOpen.textContent = this._name;
         this._titleElemOpen.alt = this._name;
 
         this._openPopup(this._popupPhoto);      
-  }
+   }
 
     //метод, в котором будут все слушатели
     _setEventListeners() {
