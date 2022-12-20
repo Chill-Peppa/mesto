@@ -113,7 +113,7 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
 //перебор массива с карточками
 //и создание экземпляров класса Card
 initialCards.forEach((item) => {
-  const card = new Card(item, popupPhoto, photoElemOpen, titleElemOpen, openPopup);
+  const card = new Card(item, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
   const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
   
   elementContainer.prepend(cardElement);// Добавляем в DOM

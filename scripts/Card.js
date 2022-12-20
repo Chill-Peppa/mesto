@@ -1,9 +1,10 @@
 //тест
 export default class Card{
 
-    constructor(data, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
+    constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
         this._name = data.name;
         this._link = data.link;
+        this._templateSelector = templateSelector;
         this._popupPhoto = popupPhoto;
         this._photoElemOpen = photoElemOpen;
         this._titleElemOpen = titleElemOpen;
@@ -13,7 +14,7 @@ export default class Card{
     //метод, чтобы вернуть разметку
     _getTemplate() {
         const cardElem = document
-        .querySelector('#element-template')
+        .querySelector(this._templateSelector)
         .content
         .querySelector('.element')
         .cloneNode(true);
@@ -28,7 +29,7 @@ export default class Card{
 
     //метод удаления карточки
     _handleRemoveCard() {
-        this._element.querySelector('.element__delete-btn').closest('.element').remove();
+        this._element.remove();
         this._element = null;
     }
 
