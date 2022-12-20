@@ -1,7 +1,7 @@
       /*---------Импорт---------*/
 
 import { initialCards } from './array.js';
-import Card from './Card.js'
+import Card from './Qwerty.js'
 import validationConf from './config.js';
 import FormValidator from './FormValidator.js'
 
