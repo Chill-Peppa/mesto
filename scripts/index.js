@@ -125,3 +125,8 @@ validationFormPopupEdit.enableValidation();
 
 const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd); //нужно еще написать второй экземпляр
 validationFormPopupAdd.enableValidation();
+
+//Извините, пожалуйста, что так получилось с работой!
+//Все было закоммичено на гитхаб, но почему-то 
+//на гх пейджс пропала папка со скриптами всеми, 
+//хотя она была на самом гитхабе
