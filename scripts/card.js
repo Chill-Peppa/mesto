@@ -1,4 +1,5 @@
-export default class Card {
+//тест
+export default class Card{
 
     constructor(data, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
         this._name = data.name;
