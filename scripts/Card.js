@@ -1,6 +1,5 @@
-//тест
 export default class Card{
-
+    
     constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
         this._name = data.name;
         this._link = data.link;
@@ -37,7 +36,7 @@ export default class Card{
     _handleOpenPopupPhoto() {
         this._photoElemOpen.src = this._link;
         this._titleElemOpen.textContent = this._name;
-        this._titleElemOpen.alt = this._name;
+        this._photoElemOpen.alt = this._name;
 
         this._openPopup(this._popupPhoto);      
    }
@@ -62,6 +61,7 @@ export default class Card{
 
         this._element.querySelector('.element-container__name').textContent = this._name;
         this._element.querySelector('.element__mask').src = this._link;
+        this._element.querySelector('.element__mask').alt = this._name;
 
         return this._element;
     }

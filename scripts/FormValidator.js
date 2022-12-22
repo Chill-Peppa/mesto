@@ -7,8 +7,10 @@ export default class FormValidator {
         this._inactiveButtonClass = config.inactiveButtonClass;
         this._inputErrorClass = config.inputErrorClass;
         this._errorClass = config.errorClass;
-
         this._form = form;
+
+        this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
+        this._buttonElement = this._form.querySelector(this._submitButtonSelector);
     }
 
     //метод для нахождения и добавления ошибки
@@ -58,8 +60,6 @@ export default class FormValidator {
 
     //метод добавления обработчиков всем полям формы
     _setInputListeners = () => {
-    this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector));
-    this._buttonElement = this._form.querySelector(this._submitButtonSelector);
     this._switchButtonPosition(this._inputList, this._buttonForm); //чтобы кнопка была не активна при открытии поля
   
     this._inputList.forEach((inputElement) => {
@@ -75,4 +75,5 @@ export default class FormValidator {
   enableValidation = () => {
     this._setInputListeners();
   }
+
 }

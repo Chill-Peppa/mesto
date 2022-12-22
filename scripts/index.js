@@ -40,12 +40,12 @@ const elementContainer = document.querySelector('.elements');
 
       /*----------Функции----------*/
 
-function openPopup(popup) {
+function openPopup(popup) { //функция на открытие всех pop-up
         popup.classList.add('popup_opened');
         document.addEventListener('keydown', closeByEsc);
       };
 
-function closePopup(popup) {
+function closePopup(popup) { //функция на закрытие всех pop-up
   popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', closeByEsc);
 };
@@ -55,6 +55,13 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
+}
+
+const createCard = (item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) => { //функция на создание экземпляра карточки
+  const card = new Card(item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup);//и добавление ее на страницу
+  const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
+  
+  elementContainer.prepend(cardElement);// Добавляем в DOM
 }
 
       /*---------Слушатели---------*/
@@ -93,12 +100,14 @@ function handleSubmitEditForm (evt) { // Функция-обработчик «�
 const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
   
-  const card = new Card({ name: titleInput.value,
-                          link: linkInput.value });
-  const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
+  createCard({ name: titleInput.value,
+                          link: linkInput.value },
+                          '#element-template',
+                          popupPhoto,
+                          photoElemOpen,
+                          titleElemOpen,
+                          openPopup);
   
-  elementContainer.prepend(cardElement);
-
   formPopupAdd.reset();
 
   const submitterBtn = evt.submitter;
@@ -111,12 +120,8 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
 //перебор массива с карточками
-//и создание экземпляров класса Card
 initialCards.forEach((item) => {
-  const card = new Card(item, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
-  const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
-  
-  elementContainer.prepend(cardElement);// Добавляем в DOM
+  createCard(item, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
 });
 
 //тут экземпляры классов для каждой формы
@@ -125,8 +130,3 @@ validationFormPopupEdit.enableValidation();
 
 const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd); //нужно еще написать второй экземпляр
 validationFormPopupAdd.enableValidation();
-
-//Извините, пожалуйста, что так получилось с работой!
-//Все было закоммичено на гитхаб, но почему-то 
-//на гх пейджс пропала папка со скриптами всеми, 
-//хотя она была на самом гитхабе
