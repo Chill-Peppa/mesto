@@ -1,19 +1,15 @@
 export default class Section {
 
     constructor({ items, renderer }, containerSelector) {
-        this._initialArray = items; //это массив данных с карточками
-        this._renderer = renderer; //это функция, которая отвечает за создание и отрисовку данных на странице.(инструкция)
+        this._initialArray = items;
+        this._renderer = renderer;
         
-        this._container = containerSelector; //это селектор контейнера, где будут отрисовываться карточки
+        this._container = containerSelector;
     }
 
     //метод, который отвечает за отрисовку всех элементов
     renderItems() {
         this._initialArray.forEach((item) => {
-/*          const card = new Card(item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup);//и добавление ее на страницу
-            const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
-            
-            this.addItem(cardElement);// Добавляем в DOM*/
             this._renderer(item);
           });
     }

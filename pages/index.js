@@ -108,7 +108,7 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
       /*---------Экземпляры классов---------*/
-      
+
 //тут экземпляр класса для перебора массива с карточками
 const renderCards = new Section ({
   items: initialCards,
