@@ -1,4 +1,4 @@
-export default class Card{
+export default class Card {
     
     constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
         this._name = data.name;
@@ -56,7 +56,7 @@ export default class Card{
 
     //метод для генерации карточек
     generateCard() {
-        this._element = this._getTemplate();
+        this._element = this._getTemplate(); //создали элемент и присвоили ему разметку
         this._setEventListeners();
 
         this._element.querySelector('.element-container__name').textContent = this._name;

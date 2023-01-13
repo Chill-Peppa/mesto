@@ -1,42 +1,30 @@
       /*---------Импорт---------*/
 
-import { initialCards } from './array.js';
-import Card from './Card.js'
-import validationConf from './config.js';
-import FormValidator from './FormValidator.js'
+import { initialCards } from '../utils/constants.js';
+import Card from '../components/Card.js'
+import validationConf from '../utils/config.js';
+import FormValidator from '../components/FormValidator.js'
+import Section from '../components/Section.js';
 
-      /*---------Объявление переменных и поиск элементов---------*/
-
-//переменные для кнопок
-const buttonEditProfile = document.querySelector('.profile-info__edit-button');
-const buttonAddElem = document.querySelector('.profile__add-button');
-
-//переменные для pop-up
-const popupEdit = document.querySelector('.popup_type_edit-button');
-const popupAdd = document.querySelector('.popup_type_add-photo');
-const popups = Array.from(document.querySelectorAll('.popup'));
-
-//переменные попапФото для конструктора класса
-const popupPhoto = document.querySelector('.popup_type_open-photo');
-const photoElemOpen = popupPhoto.querySelector('.popup__open-photo');
-const titleElemOpen = popupPhoto.querySelector('.popup__open-caption');
-
-//переменные для профиля
-const nameValue = document.querySelector('.profile-info__name');
-const jobValue = document.querySelector('.profile-info__description');
-
-//переменные для формы edit
-const formPopupEdit = popupEdit.querySelector('.form');
-const nameInput = formPopupEdit.querySelector('.form__item_info_name');
-const jobInput = formPopupEdit.querySelector('.form__item_info_job');
-
-//переменные для формы add
-const formPopupAdd = popupAdd.querySelector('.form');
-const titleInput = formPopupAdd.querySelector('.form__item_info_title');
-const linkInput = formPopupAdd.querySelector('.form__item_info_link');
-
-//переменные для карточек
-const elementContainer = document.querySelector('.elements');
+import { 
+  buttonEditProfile,
+  buttonAddElem,
+  popupEdit,
+  popupAdd,
+  popups,
+  popupPhoto,
+  photoElemOpen,
+  titleElemOpen,
+  nameValue,
+  jobValue,
+  formPopupEdit,
+  nameInput,
+  jobInput,
+  formPopupAdd,
+  titleInput,
+  linkInput,
+  elementContainer
+} from '../utils/constants.js';
 
       /*----------Функции----------*/
 
@@ -101,12 +89,12 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   evt.preventDefault();
   
   createCard({ name: titleInput.value,
-                          link: linkInput.value },
-                          '#element-template',
-                          popupPhoto,
-                          photoElemOpen,
-                          titleElemOpen,
-                          openPopup);
+               link: linkInput.value },
+               '#element-template',
+               popupPhoto,
+               photoElemOpen,
+               titleElemOpen,
+               openPopup);
   
   formPopupAdd.reset();
 
@@ -119,14 +107,22 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
-//перебор массива с карточками
-initialCards.forEach((item) => {
-  createCard(item, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
-});
+      /*---------Экземпляры классов---------*/
+      
+//тут экземпляр класса для перебора массива с карточками
+const renderCards = new Section ({
+  items: initialCards,
+  renderer: (cardItem) => {
+    createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
+  }
+},
+elementContainer);
+
+renderCards.renderItems();
 
 //тут экземпляры классов для каждой формы
-const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit); //нужно еще написать второй экземпляр
+const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit);
 validationFormPopupEdit.enableValidation();
 
-const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd); //нужно еще написать второй экземпляр
+const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd);
 validationFormPopupAdd.enableValidation();
