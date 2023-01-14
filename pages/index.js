@@ -1,10 +1,12 @@
       /*---------Импорт---------*/
 
-import { initialCards } from '../utils/constants.js';
-import Card from '../components/Card.js'
+import initialCards from '../utils/constants.js';
 import validationConf from '../utils/config.js';
+import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
+//import Popup from '../components/Popup.js'
+//import UserInfo from '../components/UserInfo.js';
 
 import { 
   buttonEditProfile,
@@ -47,9 +49,9 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
 
 const createCard = (item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) => { //функция на создание экземпляра карточки
   const card = new Card(item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup);//и добавление ее на страницу
-  const cardElement = card.generateCard();// Создаём карточку и возвращаем наружу
+  return card.generateCard();// Создаём карточку и возвращаем наружу
   
-  elementContainer.prepend(cardElement);// Добавляем в DOM
+  //elementContainer.prepend(cardElement);// Добавляем в DOM
 }
 
       /*---------Слушатели---------*/
@@ -110,17 +112,17 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
       /*---------Экземпляры классов---------*/
 
 //тут экземпляр класса для перебора массива с карточками
-const renderCards = new Section ({
+const cardList = new Section ({
   items: initialCards,
   renderer: (cardItem) => {
-    createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup);
+    cardList.addItem(createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup));
   }
 },
 elementContainer);
 
-renderCards.renderItems();
+cardList.renderItems();
 
-//тут экземпляры классов для каждой формы
+//тут экземпляры классов для валидации каждой формы
 const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit);
 validationFormPopupEdit.enableValidation();
 

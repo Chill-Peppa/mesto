@@ -1,5 +1,5 @@
 //массив карточек
-export const initialCards = [
+const initialCards = [
     {
       name: 'Архыз',
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -25,6 +25,7 @@ export const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
+export default initialCards;
 
 //переменные для кнопок
 export const buttonEditProfile = document.querySelector('.profile-info__edit-button');
