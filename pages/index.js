@@ -6,6 +6,7 @@ import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
 //import Popup from '../components/Popup.js'
+//import PopupWithImage from '../components/PopupWithImage.js';
 //import UserInfo from '../components/UserInfo.js';
 
 import { 
@@ -29,7 +30,6 @@ import {
 } from '../utils/constants.js';
 
       /*----------Функции----------*/
-
 function openPopup(popup) { //функция на открытие всех pop-up
         popup.classList.add('popup_opened');
         document.addEventListener('keydown', closeByEsc);
@@ -47,11 +47,19 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
   }
 }
 
-const createCard = (item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) => { //функция на создание экземпляра карточки
-  const card = new Card(item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup);//и добавление ее на страницу
+//функция на создание экземпляра карточки и добавление ее на страницу
+const createCard = (
+  item,
+  templateSelector,
+  popupPhoto,
+  photoElemOpen,
+  titleElemOpen,
+  openPopup) => { 
+  const card = new Card(item, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup);
+
   return card.generateCard();// Создаём карточку и возвращаем наружу
   
-  //elementContainer.prepend(cardElement);// Добавляем в DOM
+  //elementContainer.prepend(cardElement);// Добавляем в DOM - этот комм не раскоммичивай
 }
 
       /*---------Слушатели---------*/
@@ -66,7 +74,7 @@ buttonAddElem.addEventListener('click', () => { //на открытие pop-up a
   openPopup(popupAdd);
 });
 
-formPopupEdit.addEventListener('submit', handleSubmitEditForm); //Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+formPopupEdit.addEventListener('submit', handleSubmitEditForm);///Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
 
 popups.forEach(function(popupElem) { //перебор на закрытие всех попапов по оверлею и крестику
   popupElem.addEventListener('mousedown', (evt) => {
@@ -110,6 +118,9 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
       /*---------Экземпляры классов---------*/
+
+//тут экземпляр класса для попапа с картинкой
+//const imagePopup = new PopupWithImage({popupSelector: popupPhoto});
 
 //тут экземпляр класса для перебора массива с карточками
 const cardList = new Section ({

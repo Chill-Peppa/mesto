@@ -1,13 +1,13 @@
 export default class Card {
     
-    constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, openPopup) {
+    constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, handleCardClick) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
         this._popupPhoto = popupPhoto;
         this._photoElemOpen = photoElemOpen;
         this._titleElemOpen = titleElemOpen;
-        this._openPopup = openPopup;
+        this._handleCardClick = handleCardClick; //это новая функция вместо openPopup
     }
     
     //метод, чтобы вернуть разметку
@@ -38,7 +38,7 @@ export default class Card {
         this._titleElemOpen.textContent = this._name;
         this._photoElemOpen.alt = this._name;
 
-        this._openPopup(this._popupPhoto);      
+        this._handleCardClick(this._popupPhoto);      
    }
 
     //метод, в котором будут все слушатели
