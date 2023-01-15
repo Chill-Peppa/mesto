@@ -23,12 +23,15 @@ export default class Popup {
           }
     }
 
-    //метод на добавление слушателя клика (закрытие на крестик и оверлей)
+    //метод на добавление слушателя клика (закрытие)
     setEventListeners() {
         this._popupSelector.addEventListener('mousedown', (evt) => {
             if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
                 this.close();
             };
+          });
+          document.addEventListener("keydown", (evt) => { //закрываем по экс (почему-то на this._popupSelector.addEventListener закрывать не хочет!!)
+            this._handleEscClose(evt);
           });
     }
 }

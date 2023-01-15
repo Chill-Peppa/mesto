@@ -121,6 +121,7 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
 
 //тут экземпляр класса для попапа с картинкой
 const imagePopup = new PopupWithImage({popupSelector: popupPhoto});
+imagePopup.setEventListeners();
 
 //тут экземпляр класса для перебора массива с карточками
 const cardList = new Section ({
@@ -144,4 +145,3 @@ validationFormPopupEdit.enableValidation();
 const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd);
 validationFormPopupAdd.enableValidation();
 
-imagePopup.setEventListeners();
