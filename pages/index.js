@@ -4,7 +4,7 @@ import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/popupWithForm.js'
+import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js';
 
 import { 
@@ -97,7 +97,7 @@ buttonAddElem.addEventListener('click', () => {
     closePopup(popupEdit); //+
 };*/
 
-const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
+/*const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
   
   createCard({ name: titleInput.value,
@@ -117,7 +117,7 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
   closePopup(popupAdd);
 };
 
-formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
+formPopupAdd.addEventListener('submit', handleSubmitAddForm);*/ //Прикрепляем обработчик к форме 'add'
 
 //переписанный слушатель, который вешается на кнопку edit
 buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
@@ -148,9 +148,27 @@ popupWithEditForm.setEventListeners();
 
 //add
 const popupWithAddForm = new PopupWithForm({ popupSelector: popupAdd, handleFormSubmit: (formData) => {
+  const card = new Card( { data: formData, templateSelector: '#element-template', handleCardClick: () => {
+    imagePopup.open(formData);
+  }
+});
+elementContainer.prepend(card.generateCard());
 
+formPopupAdd.reset();
+/*const submitterBtn = evt.submitter;
+submitterBtn.classList.add(validationConf.inactiveButtonClass);
+submitterBtn.setAttribute('disabled', 'true');*/
+popupWithAddForm.close();
 }
 });
+
+/*formPopupAdd.reset();
+
+const submitterBtn = evt.submitter;
+submitterBtn.classList.add(validationConf.inactiveButtonClass);
+submitterBtn.setAttribute('disabled', 'true');
+
+popupWithAddForm.close();*/
 
 popupWithAddForm.setEventListeners();
 
