@@ -16,7 +16,9 @@ export default class PopupWithForm extends Popup {
 
     }
 
-    //метод при закрытии сбрасывает формы
-    close()
+    //+метод при закрытии сбрасывает формы
+    close() {
+
+    }
 
 }
