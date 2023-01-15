@@ -1,13 +1,11 @@
-      /*---------Импорт---------*/
-
 import initialCards from '../utils/constants.js';
 import validationConf from '../utils/config.js';
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
-//import Popup from '../components/Popup.js'
 import PopupWithImage from '../components/PopupWithImage.js';
-//import UserInfo from '../components/UserInfo.js';
+import PopupWithForm from '../components/popupWithForm.js'
+import UserInfo from '../components/UserInfo.js';
 
 import { 
   buttonEditProfile,
@@ -30,7 +28,7 @@ import {
 } from '../utils/constants.js';
 
       /*----------Функции----------*/
-function openPopup(popup) { //функция на открытие всех pop-up
+/*function openPopup(popup) { //функция на открытие всех pop-up
         popup.classList.add('popup_opened');
         document.addEventListener('keydown', closeByEsc);
       };
@@ -45,7 +43,7 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
     const openedPopup = document.querySelector('.popup_opened');
     closePopup(openedPopup);
   }
-}
+}*/
 
 //функция на создание экземпляра карточки и добавление ее на страницу
 /*const createCard = (
@@ -64,36 +62,40 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
 
       /*---------Слушатели---------*/
 
-buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
+/*buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
   openPopup(popupEdit);
   nameInput.value = nameValue.textContent;
   jobInput.value = jobValue.textContent;
-});
+});*/
 
-buttonAddElem.addEventListener('click', () => { //на открытие pop-up add
+/*buttonAddElem.addEventListener('click', () => { //на открытие pop-up add
   openPopup(popupAdd);
-});
+});*/
 
-formPopupEdit.addEventListener('submit', handleSubmitEditForm);///Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+buttonAddElem.addEventListener('click', () => {
+  popupWithAddForm.open();
+})
 
-popups.forEach(function(popupElem) { //перебор на закрытие всех попапов по оверлею и крестику
+//formPopupEdit.addEventListener('submit', handleSubmitEditForm);///Прикрепляем обработчик к форме 'edit'. Он будет следить за событием “submit” - «отправка»
+
+/*popups.forEach(function(popupElem) { //перебор на закрытие всех попапов по оверлею и крестику
   popupElem.addEventListener('mousedown', (evt) => {
     if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
       closePopup(popupElem);
     };
   });
-});
+});*/
 
       /*---------Обработчики---------*/
 
-function handleSubmitEditForm (evt) { // Функция-обработчик «отправки» формы pop-up edit
-    evt.preventDefault();
+/*function handleSubmitEditForm (evt) { // Функция-обработчик «отправки» формы pop-up edit
+    evt.preventDefault(); //+
 
     nameValue.textContent = nameInput.value;
     jobValue.textContent = jobInput.value;
 
-    closePopup(popupEdit);
-};
+    closePopup(popupEdit); //+
+};*/
 
 const handleSubmitAddForm = (evt) => { //функция-обработчик формы add
   evt.preventDefault();
@@ -117,11 +119,40 @@ const handleSubmitAddForm = (evt) => { //функция-обработчик ф�
 
 formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепляем обработчик к форме 'add'
 
-      /*---------Экземпляры классов---------*/
+//переписанный слушатель, который вешается на кнопку edit
+buttonEditProfile.addEventListener('click', () => { //на открытие pop-up edit
+  popupWithEditForm.open();
+  nameInput.value = userData.getUserInfo().firstname;
+  jobInput.value = userData.getUserInfo().career;
+});
+
+      /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
 //тут экземпляр класса для попапа с картинкой
-const imagePopup = new PopupWithImage({popupSelector: popupPhoto});
+const imagePopup = new PopupWithImage({ popupSelector: popupPhoto });
 imagePopup.setEventListeners();
+
+//экземпляр класса для данных юзера
+const userData = new UserInfo({ name: nameValue, info: jobValue });
+
+//тут экземпляры классов для попапов edit и add
+
+//edit
+const popupWithEditForm = new PopupWithForm({ popupSelector: popupEdit, handleFormSubmit: (formData) => {
+  userData.setUserInfo(formData); //записали новые значения
+  popupWithEditForm.close();
+} 
+});
+
+popupWithEditForm.setEventListeners();
+
+//add
+const popupWithAddForm = new PopupWithForm({ popupSelector: popupAdd, handleFormSubmit: (formData) => {
+
+}
+});
+
+popupWithAddForm.setEventListeners();
 
 //тут экземпляр класса для перебора массива с карточками
 const cardList = new Section ({
@@ -129,14 +160,15 @@ const cardList = new Section ({
   renderer: (cardItem) => {
     const card = new Card( { data: cardItem, templateSelector: '#element-template', handleCardClick: () => {
       imagePopup.open(cardItem);
-    } } );
+    } 
+  });
     cardList.addItem(card.generateCard());
-    /*cardList.addItem(createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup));*/
   }
 },
 elementContainer);
 
 cardList.renderItems();
+/*cardList.addItem(createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup));*/
 
 //тут экземпляры классов для валидации каждой формы
 const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit);

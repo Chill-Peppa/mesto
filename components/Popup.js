@@ -30,7 +30,7 @@ export default class Popup {
                 this.close();
             };
           });
-          document.addEventListener("keydown", (evt) => { //закрываем по экс (почему-то на this._popupSelector.addEventListener закрывать не хочет!!)
+        document.addEventListener("keydown", (evt) => {
             this._handleEscClose(evt);
           });
     }
