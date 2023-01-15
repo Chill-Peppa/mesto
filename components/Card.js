@@ -1,12 +1,12 @@
 export default class Card {
     
-    constructor(data, templateSelector, popupPhoto, photoElemOpen, titleElemOpen, handleCardClick) {
+    constructor({ data, templateSelector, /*popupPhoto, photoElemOpen, titleElemOpen, */handleCardClick }) {
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector;
-        this._popupPhoto = popupPhoto;
+        /*this._popupPhoto = popupPhoto;
         this._photoElemOpen = photoElemOpen;
-        this._titleElemOpen = titleElemOpen;
+        this._titleElemOpen = titleElemOpen;*/
         this._handleCardClick = handleCardClick; //это новая функция вместо openPopup
     }
     
@@ -33,13 +33,13 @@ export default class Card {
     }
 
     //метод для открытия попапа
-    _handleOpenPopupPhoto() {
+    /*_handleOpenPopupPhoto() {
         this._photoElemOpen.src = this._link;
         this._titleElemOpen.textContent = this._name;
         this._photoElemOpen.alt = this._name;
 
         this._handleCardClick(this._popupPhoto);      
-   }
+   }*/
 
     //метод, в котором будут все слушатели
     _setEventListeners() {
@@ -50,8 +50,11 @@ export default class Card {
             this._handleRemoveCard();
         });
         this._element.querySelector('.element__mask').addEventListener('click', () => {
-           this._handleOpenPopupPhoto();
+            this._handleCardClick(); 
         });
+    /*    this._element.querySelector('.element__mask').addEventListener('click', () => {
+           this._handleOpenPopupPhoto();
+        });*/
     }
 
     //метод для генерации карточек

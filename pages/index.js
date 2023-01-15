@@ -6,7 +6,7 @@ import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../components/Section.js';
 //import Popup from '../components/Popup.js'
-//import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 //import UserInfo from '../components/UserInfo.js';
 
 import { 
@@ -48,7 +48,7 @@ function closeByEsc(evt) { //функция на закрытие pop-up по es
 }
 
 //функция на создание экземпляра карточки и добавление ее на страницу
-const createCard = (
+/*const createCard = (
   item,
   templateSelector,
   popupPhoto,
@@ -60,7 +60,7 @@ const createCard = (
   return card.generateCard();// Создаём карточку и возвращаем наружу
   
   //elementContainer.prepend(cardElement);// Добавляем в DOM - этот комм не раскоммичивай
-}
+}*/
 
       /*---------Слушатели---------*/
 
@@ -120,13 +120,17 @@ formPopupAdd.addEventListener('submit', handleSubmitAddForm); //Прикрепл
       /*---------Экземпляры классов---------*/
 
 //тут экземпляр класса для попапа с картинкой
-//const imagePopup = new PopupWithImage({popupSelector: popupPhoto});
+const imagePopup = new PopupWithImage({popupSelector: popupPhoto});
 
 //тут экземпляр класса для перебора массива с карточками
 const cardList = new Section ({
   items: initialCards,
   renderer: (cardItem) => {
-    cardList.addItem(createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup));
+    const card = new Card( { data: cardItem, templateSelector: '#element-template', handleCardClick: () => {
+      imagePopup.open(cardItem);
+    } } );
+    cardList.addItem(card.generateCard());
+    /*cardList.addItem(createCard(cardItem, '#element-template', popupPhoto, photoElemOpen, titleElemOpen, openPopup));*/
   }
 },
 elementContainer);
@@ -139,3 +143,5 @@ validationFormPopupEdit.enableValidation();
 
 const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd);
 validationFormPopupAdd.enableValidation();
+
+imagePopup.setEventListeners();

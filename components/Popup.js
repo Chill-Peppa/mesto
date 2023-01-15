@@ -17,13 +17,13 @@ export default class Popup {
     }
 
     //метод на закрытие по esc
-    _handleEscClose() {
+    _handleEscClose(evt) {
         if (evt.key === 'Escape') {
             this.close();
           }
     }
 
-    //метод на добавление слушателя клика
+    //метод на добавление слушателя клика (закрытие на крестик и оверлей)
     setEventListeners() {
         this._popupSelector.addEventListener('mousedown', (evt) => {
             if (evt.target === evt.currentTarget || evt.target.classList.contains('popup__close')) {
