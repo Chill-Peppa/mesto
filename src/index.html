@@ -8,7 +8,7 @@
     <meta name="author" content="Анастасия Боднюк" />
     <link rel="icon" href="./images/icon.ico" />
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+    <!--<link rel="stylesheet" href="./pages/index.css" />-->
   </head>
 
   <body class="root">
@@ -16,8 +16,8 @@
       <header class="header">
         <img
           class="header__logo"
-          src="./images/logo.svg"
-          alt="Логотип сервиса 'Mesto'"
+          src="<%=require('./images/logo.svg')%>"
+          alt="Логотип"
         />
       </header>
 
@@ -26,8 +26,8 @@
           <div class="profile__area">
             <img
               class="profile__avatar"
+              src="<%=require('./images/avatar.jpg')%>"
               alt="Аватар профиля"
-              src="./images/avatar.jpg"
             />
             <div class="profile-info">
               <h1 class="profile-info__name">Жак-Ив Кусто</h1>
@@ -131,6 +131,6 @@
         </div>
       </li>
     </template>
-    <script type="module" src="./pages/index.js" defer></script>
+    <!--<script type="module" src="./pages/index.js" defer></script>-->
   </body>
 </html>
