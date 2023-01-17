@@ -20,7 +20,7 @@ export default class Card {
 
     //метод тоггла лайка
     _handleLikeCard() {
-        this._element.querySelector('.element-container__like-btn').classList.toggle('element-container__like-btn_active');
+        this._likeBtn.classList.toggle('element-container__like-btn_active');
     }
 
     //метод удаления карточки
@@ -31,25 +31,29 @@ export default class Card {
 
     //метод, в котором будут все слушатели
     _setEventListeners() {
-        this._element.querySelector('.element-container__like-btn').addEventListener('click', () => {
+        this._likeBtn.addEventListener('click', () => {
             this._handleLikeCard();
         });
-        this._element.querySelector('.element__delete-btn').addEventListener('click', () => {
+        this._deleteBtn.addEventListener('click', () => {
             this._handleRemoveCard();
         });
-        this._element.querySelector('.element__mask').addEventListener('click', () => {
+        this._cardImg.addEventListener('click', () => {
             this._handleCardClick(); 
         });
     }
 
-    //метод для генерации карточек
     generateCard() {
-        this._element = this._getTemplate(); //создали элемент и присвоили ему разметку
+        this._element = this._getTemplate();
+        console.log(this._element)
+        this._likeBtn = this._element.querySelector('.element-container__like-btn');
+        this._deleteBtn = this._element.querySelector('.element__delete-btn');
+        this._cardImg = this._element.querySelector('.element__mask');
+        this._cardText = this._element.querySelector('.element-container__name');
         this._setEventListeners();
 
-        this._element.querySelector('.element-container__name').textContent = this._name;
-        this._element.querySelector('.element__mask').src = this._link;
-        this._element.querySelector('.element__mask').alt = this._name;
+        this._cardText.textContent = this._name;
+        this._cardImg.src = this._link;
+        this._cardImg.alt = this._name;
 
         return this._element;
     }

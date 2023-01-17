@@ -60,7 +60,7 @@ export default class FormValidator {
 
     //метод добавления обработчиков всем полям формы
     _setInputListeners = () => {
-    this._switchButtonPosition(this._inputList, this._buttonForm); //чтобы кнопка была не активна при открытии поля
+    this._switchButtonPosition(); //чтобы кнопка была не активна при открытии поля
   
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -70,7 +70,16 @@ export default class FormValidator {
       });
     });
   }
-  
+
+  //метод для очистки формы от ошибок и блокировки кнопки
+  resetValidaition() {
+    this._switchButtonPosition();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement) //чтобы очистить ошибки
+    });
+  }
+
   //передаем все слушатели 
   enableValidation = () => {
     this._setInputListeners();
