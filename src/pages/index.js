@@ -12,11 +12,6 @@ import UserInfo from '../components/UserInfo.js';
 import { 
   buttonEditProfile,
   buttonAddElem,
-  popupEdit,
-  popupAdd,
-  popupPhoto,
-  nameValue,
-  jobValue,
   formPopupEdit,
   nameInput,
   jobInput,

@@ -44,7 +44,6 @@ export default class Card {
 
     generateCard() {
         this._element = this._getTemplate();
-        console.log(this._element)
         this._likeBtn = this._element.querySelector('.element-container__like-btn');
         this._deleteBtn = this._element.querySelector('.element__delete-btn');
         this._cardImg = this._element.querySelector('.element__mask');
