@@ -1,13 +1,15 @@
 import "./index.css";
 
 import initialCards from '../utils/constants.js';
-import validationConf from '../utils/config.js';
-import Card from '../components/Card.js'
-import FormValidator from '../components/FormValidator.js'
+import { configApi } from '../utils/config.js';
+import { validationConf } from '../utils/config.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 
 import { 
   buttonEditProfile,
@@ -51,6 +53,17 @@ buttonAddElem.addEventListener('click', () => {
 
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
+//получаем карточки с сервера
+const api = new Api(configApi);
+api.getAllCards().then((card) => {
+  const cardList = new Section ({ renderer: (cardItem) => {
+    cardList.addItem(createCard(cardItem));
+  } 
+  }, elementContainer);
+  
+  cardList.renderItems(card);
+  });
+
 //Экземпляр класса popupPhoto
 const imagePopup = new PopupWithImage({ popupSelector: '.popup_type_open-photo' });
 imagePopup.setEventListeners();
@@ -68,21 +81,28 @@ const popupWithEditForm = new PopupWithForm({ popupSelector: '.popup_type_edit-b
 popupWithEditForm.setEventListeners();
 
 //Экземпляр класса для popupAdd
-const popupWithAddForm = new PopupWithForm({ popupSelector: '.popup_type_add-photo', handleFormSubmit: (formData) => {
-elementContainer.prepend(createCard(formData));
+const popupWithAddForm = new PopupWithForm({ popupSelector: '.popup_type_add-photo', handleFormSubmit: ({ photoNameInput, aboutJobInput }) => {
+api.postCard(photoNameInput, aboutJobInput)
+.then((data) => {
+  cardList.renderItems(data);
+  console.log(data)
+  popupWithAddForm.close();
+})
+/*elementContainer.prepend(createCard(formData));
 popupWithAddForm.close();
+}*/
 }
 });
 
 popupWithAddForm.setEventListeners();
 
 //Экземпляр класса для перебора массива с карточками
-const cardList = new Section ({ renderer: (cardItem) => {
+/*const cardList = new Section ({ renderer: (cardItem) => {
   cardList.addItem(createCard(cardItem));
 } 
 }, elementContainer);
 
-cardList.renderItems(initialCards);
+cardList.renderItems(initialCards);*/
 
 //Экземпляры классов для валидации каждой формы
 const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit);

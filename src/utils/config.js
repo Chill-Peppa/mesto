@@ -1,4 +1,4 @@
-const validationConf = {
+export const validationConf = {
     formSelector: '.form',
     inputSelector: '.form__item',
     submitButtonSelector: '.form__button-submit',
@@ -7,4 +7,10 @@ const validationConf = {
     errorClass: 'form__item-error_active'
   }
 
-export default validationConf;
+export const configApi = {
+  url: 'https://mesto.nomoreparties.co',
+  headers: {
+    'Content-Type': 'application/json',
+    authorization: 'fa0e36d5-ce77-4b43-9654-baaa45f07f34'
+  }
+};
