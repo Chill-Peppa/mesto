@@ -62,6 +62,7 @@ api.getAllCards().then((card) => {
   }, elementContainer);
   
   cardList.renderItems(card);
+  console.log(card);
   });
 
 //Экземпляр класса popupPhoto
@@ -81,17 +82,16 @@ const popupWithEditForm = new PopupWithForm({ popupSelector: '.popup_type_edit-b
 popupWithEditForm.setEventListeners();
 
 //Экземпляр класса для popupAdd
-const popupWithAddForm = new PopupWithForm({ popupSelector: '.popup_type_add-photo', handleFormSubmit: ({ photoNameInput, aboutJobInput }) => {
-api.postCard(photoNameInput, aboutJobInput)
-.then((data) => {
-  cardList.renderItems(data);
-  console.log(data)
-  popupWithAddForm.close();
-})
-/*elementContainer.prepend(createCard(formData));
-popupWithAddForm.close();
-}*/
-}
+const popupWithAddForm = new PopupWithForm({ 
+  popupSelector: '.popup_type_add-photo', 
+  handleFormSubmit: (formData) => {
+    api.postCard(formData)
+
+    elementContainer.prepend(createCard(formData));
+    popupWithAddForm.close();
+    /*elementContainer.prepend(createCard(formData));
+    popupWithAddForm.close();*/
+  }
 });
 
 popupWithAddForm.setEventListeners();
