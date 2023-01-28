@@ -1,6 +1,5 @@
 import "./index.css";
 
-import initialCards from '../utils/constants.js';
 import { configApi } from '../utils/config.js';
 import { validationConf } from '../utils/config.js';
 import Card from '../components/Card.js';
@@ -20,6 +19,7 @@ import {
   formPopupAdd,
   elementContainer
 } from '../utils/constants.js';
+
 
       /*----------ФУНКЦИИ----------*/
 
@@ -85,7 +85,7 @@ popupWithEditForm.setEventListeners();
 const popupWithAddForm = new PopupWithForm({ 
   popupSelector: '.popup_type_add-photo', 
   handleFormSubmit: (formData) => {
-    api.postCard(formData)
+    api.postCard(formData);
 
     elementContainer.prepend(createCard(formData));
     popupWithAddForm.close();

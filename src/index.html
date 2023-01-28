@@ -23,11 +23,13 @@
       <main class="content">
         <section class="profile">
           <div class="profile__area">
-            <img
-              class="profile__avatar"
-              src="<%=require('./images/avatar.jpg')%>"
-              alt="Аватар профиля"
-            />
+            <div class="profile__avatar-container">
+              <img
+                class="profile__avatar"
+                src="<%=require('./images/avatar.jpg')%>"
+                alt="Аватар профиля"
+              />
+            </div>
             <div class="profile-info">
               <h1 class="profile-info__name">Жак-Ив Кусто</h1>
               <button type="button" class="profile-info__edit-button"></button>
@@ -119,6 +121,35 @@
       </div>
     </div>
 
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <button type="button" class="popup__close"></button>
+        <h2 class="popup__heading">Обновить аватар</h2>
+        <form class="form" name="form-name_edit-avatar" novalidate>
+          <input
+            id="avatar-input"
+            type="url"
+            name="avatar-link"
+            placeholder="Ссылка на картинку"
+            class="form__item form__item_avatar_link"
+            required
+          />
+          <span class="avatar-input-error form__item-error"></span>
+          <button type="submit" class="form__button-submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_delete popup_opened">
+      <div class="popup__container">
+        <button type="button" class="popup__close"></button>
+        <h2 class="popup__heading">Вы уверены?</h2>
+        <form class="form" name="form-name_dlt-confirm" novalidate>
+          <button type="submit" class="form__button-submit">Да</button>
+        </form>
+      </div>
+    </div>
+
     <!--Тут шаблон...-->
     <template id="element-template">
       <li class="element">
@@ -126,7 +157,10 @@
         <button type="button" class="element__delete-btn"></button>
         <div class="element-container">
           <h2 class="element-container__name"></h2>
-          <button type="button" class="element-container__like-btn"></button>
+          <div class="element-container__like-box">
+            <button type="button" class="element-container__like-btn"></button>
+            <span class="element-container__span">1</span>
+          </div>
         </div>
       </li>
     </template>

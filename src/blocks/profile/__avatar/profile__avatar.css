@@ -1,17 +1,17 @@
 .profile__avatar {
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    margin: 0 28px 0 0;
-    transform: translateY(1px);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 0 28px 0 0;
+  transform: translateY(1px);
 }
 
 @media screen and (max-width: 660px) {
-    .profile__avatar {
-        margin: 0 auto;
-        margin-top: 40px;
-        margin-bottom: 28px;
-        flex-direction: column;
-        transform: none;
-    }
+  .profile__avatar {
+    margin: 0 auto;
+    margin-top: 40px;
+    margin-bottom: 28px;
+    flex-direction: column;
+    transform: none;
+  }
 }
