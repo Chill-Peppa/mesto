@@ -33,6 +33,8 @@ import {
 const createCard = (cardItem) => {
   const card = new Card({ 
     data: cardItem, 
+    ownerId: 'b2340a94dbdead81a297440f',
+    userId: userId,
     templateSelector: '#element-template', 
     handleCardClick: () => {
       imagePopup.open(cardItem);
@@ -76,10 +78,11 @@ api.getAllCards().then((card) => {
   console.log(card);
 });
 
+let userId;
 //получим данные юзера с сервера
 api.getUserInfo()
 .then((formData) => {
-  console.log(formData);
+  userId = formData._id;
   profileName.textContent = formData.name;
   profileJob.textContent = formData.about;
   userAvatar.src = formData.avatar;
@@ -114,8 +117,9 @@ const popupWithEditForm = new PopupWithForm({
     api.updateUserInfo(formData)
     .then((items) => {
       userData.setUserInfo(items); //записали новые значения
-      console.log(items)
+      console.log(items);
     })
+    
     popupWithEditForm.close();
   }
   })
@@ -129,7 +133,11 @@ const popupWithAvatarForm = new PopupWithForm({
     api.sendUserAvatar(formData)
     .then((data) => {
       userAvatar.src = data.avatar;
+      console.log(data)
     })
+    .catch((err) => {
+      console.error(`Всё идёт не по плану. Ошибка: ${err}`);
+    });
 
     popupWithAvatarForm.close();
   }

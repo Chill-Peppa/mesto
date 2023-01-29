@@ -21,6 +21,7 @@
 @import url("../blocks/element/element.css");
 @import url("../blocks/element/__mask/element__mask.css");
 @import url("../blocks/element/__delete-btn/element__delete-btn.css");
+@import url("../blocks/element/__delete-btn/_disabled/element__delete-btn_disabled.css");
 @import url("../blocks/element-container/element-container.css");
 @import url("../blocks/element-container/__name/element-container__name.css");
 @import url("../blocks/element-container/__like-box/element-container__like-box.css");

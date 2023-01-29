@@ -37,7 +37,6 @@ export default class Api {
         })
         .then((res) => {
             if (res.ok) {
-                console.log(res)
                 return res.json()
             }
         })
@@ -49,6 +48,19 @@ export default class Api {
             headers: this._headers,
             method: 'POST',
             body: JSON.stringify(data)
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+    }
+
+    //удаление карточки
+    deleteCard(id) {
+        return fetch(`${this._url}/v1/cohort-58/cards/${id}`, {
+            headers: this._headers,
+            method: 'DELETE'
         })
         .then((res) => {
             if (res.ok) {
