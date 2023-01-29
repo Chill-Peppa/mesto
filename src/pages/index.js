@@ -17,7 +17,9 @@ import {
   nameInput,
   jobInput,
   formPopupAdd,
-  elementContainer
+  elementContainer,
+  buttonEditAvatar,
+  userAvatar
 } from '../utils/constants.js';
 
 
@@ -51,9 +53,13 @@ buttonAddElem.addEventListener('click', () => {
   popupWithAddForm.open();
 });
 
+buttonEditAvatar.addEventListener('click', () => {
+  popupWithAvatarForm.open();
+})
+
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
-//получаем карточки с сервера
+//получаем карточки с сервера (тут перебор)
 const api = new Api(configApi);
 api.getAllCards().then((card) => {
   const cardList = new Section ({ renderer: (cardItem) => {
@@ -70,39 +76,46 @@ const imagePopup = new PopupWithImage({ popupSelector: '.popup_type_open-photo' 
 imagePopup.setEventListeners();
 
 //Экземпляр класса для данных юзера
-const userData = new UserInfo({ nameSelector: '.profile-info__name', infoSelector: '.profile-info__description' });
+const userData = new UserInfo({
+  nameSelector: '.profile-info__name', 
+  infoSelector: '.profile-info__description' });
 
 //Экземпляр класса для popupEdit
-const popupWithEditForm = new PopupWithForm({ popupSelector: '.popup_type_edit-button', handleFormSubmit: (formData) => {
-  userData.setUserInfo(formData); //записали новые значения
-  popupWithEditForm.close();
-} 
+const popupWithEditForm = new PopupWithForm({
+  popupSelector: '.popup_type_edit-button', 
+  handleFormSubmit: (formData) => {
+    userData.setUserInfo(formData); //записали новые значения
+    popupWithEditForm.close();
+  } 
 });
 
 popupWithEditForm.setEventListeners();
 
-//Экземпляр класса для popupAdd
+//Экземпляр класса для popupAdd + карточки теперь добавляются на сервер
 const popupWithAddForm = new PopupWithForm({ 
   popupSelector: '.popup_type_add-photo', 
   handleFormSubmit: (formData) => {
     api.postCard(formData);
 
-    elementContainer.prepend(createCard(formData));
+    elementContainer.append(createCard(formData));
     popupWithAddForm.close();
-    /*elementContainer.prepend(createCard(formData));
-    popupWithAddForm.close();*/
   }
 });
 
 popupWithAddForm.setEventListeners();
 
-//Экземпляр класса для перебора массива с карточками
-/*const cardList = new Section ({ renderer: (cardItem) => {
-  cardList.addItem(createCard(cardItem));
-} 
-}, elementContainer);
+//экземпляр класса для popupEditAvatar (БЕЗ АПИ)
+const popupWithAvatarForm = new PopupWithForm({
+  popupSelector: '.popup_type_edit-avatar',
+  handleFormSubmit: (formData) => {
+    /*api.sendUserAvatar(formData);*/
+    userAvatar.src = formData.avatarLink;
 
-cardList.renderItems(initialCards);*/
+    popupWithAvatarForm.close();
+  }
+})
+
+popupWithAvatarForm.setEventListeners();
 
 //Экземпляры классов для валидации каждой формы
 const validationFormPopupEdit = new FormValidator(validationConf, formPopupEdit);

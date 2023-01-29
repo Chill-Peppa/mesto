@@ -29,4 +29,18 @@ export default class Api {
             }
         })
     }
+
+    //метод отправки аватара юзера на сервер
+    sendUserAvatar(avatar) {
+        return fetch(`${this._url}/v1/cohort-58/users/me/avatar`, {
+            headers: this._headers,
+            method: 'PATCH',
+            body: JSON.stringify(avatar)
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+    }
 }

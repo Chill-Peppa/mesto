@@ -3,7 +3,7 @@
   width: 120px;
   height: 120px;
   margin: 0 28px 0 0;
-  transform: translateY(1px);
+  transform: translateX(-6px);
 }
 
 @media screen and (max-width: 660px) {
