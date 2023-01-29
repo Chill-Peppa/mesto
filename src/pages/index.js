@@ -14,6 +14,7 @@ import {
   buttonEditProfile,
   buttonAddElem,
   formPopupEdit,
+  formPopupEditAvatar,
   nameInput,
   jobInput,
   formPopupAdd,
@@ -123,6 +124,9 @@ validationFormPopupEdit.enableValidation();
 
 const validationFormPopupAdd = new FormValidator(validationConf, formPopupAdd);
 validationFormPopupAdd.enableValidation();
+
+const validationFormPopupEditAvatar = new FormValidator(validationConf, formPopupEditAvatar);
+validationFormPopupEditAvatar.enableValidation();
 
 //Экземпляр класса для очистки форм от ошибок после ввода
 //и блокировки кнопки
