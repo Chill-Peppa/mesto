@@ -6,7 +6,7 @@ export default class Api {
 
     //GET с информацией пользователя с сервера
     getUserInfo() {
-        return fetch(`${this._url}/v1/cohort-58/users/me`, {
+        return fetch(`https://nomoreparties.co/v1/cohort-58/users/me`, {
             headers: this._headers
         })
         .then((res) => {
@@ -27,6 +27,21 @@ export default class Api {
             }
         })
     }
+    
+    //редактирование профиля
+    updateUserInfo(data) {
+        return fetch(`${this._url}/v1/cohort-58/users/me`, {
+            headers: this._headers,
+            method: 'PATCH',
+            body: JSON.stringify(data)
+        })
+        .then((res) => {
+            if (res.ok) {
+                console.log(res)
+                return res.json()
+            }
+        })
+    }
 
     //метод отправки карточки на сервер
     postCard(data) {
@@ -43,11 +58,11 @@ export default class Api {
     }
 
     //метод отправки аватара юзера на сервер
-    sendUserAvatar(avatar) {
+    sendUserAvatar(data) {
         return fetch(`${this._url}/v1/cohort-58/users/me/avatar`, {
             headers: this._headers,
             method: 'PATCH',
-            body: JSON.stringify(avatar)
+            body: JSON.stringify(data)
         })
         .then((res) => {
             if (res.ok) {

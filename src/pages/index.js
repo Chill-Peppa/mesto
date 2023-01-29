@@ -2,6 +2,7 @@ import "./index.css";
 
 import { configApi } from '../utils/config.js';
 import { validationConf } from '../utils/config.js';
+
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -47,8 +48,8 @@ buttonEditProfile.addEventListener('click', () => {
   popupWithEditForm.open();
 
   const profileInfo = userData.getUserInfo();
-  nameInput.value = profileInfo.firstname;
-  jobInput.value = profileInfo.career;
+  nameInput.value = profileInfo.name;
+  jobInput.value = profileInfo.about;
 });
 
 buttonAddElem.addEventListener('click', () => {
@@ -84,7 +85,7 @@ api.getUserInfo()
   userAvatar.src = formData.avatar;
 });
 
-//Экземпляр класса для popupAdd + карточки теперь добавляются на сервер
+//карточки теперь добавляются на сервер
 const popupWithAddForm = new PopupWithForm({ 
   popupSelector: '.popup_type_add-photo', 
   handleFormSubmit: (formData) => {
@@ -106,23 +107,29 @@ const userData = new UserInfo({
   nameSelector: '.profile-info__name', 
   infoSelector: '.profile-info__description' });
 
-//Экземпляр класса для popupEdit
+//Экземпляр класса для popupEdit, связанный с сервером
 const popupWithEditForm = new PopupWithForm({
   popupSelector: '.popup_type_edit-button', 
   handleFormSubmit: (formData) => {
-    userData.setUserInfo(formData); //записали новые значения
+    api.updateUserInfo(formData)
+    .then((items) => {
+      userData.setUserInfo(items); //записали новые значения
+      console.log(items)
+    })
     popupWithEditForm.close();
-  } 
-});
+  }
+  })
 
 popupWithEditForm.setEventListeners();
 
-//экземпляр класса для popupEditAvatar (БЕЗ АПИ)
+//экземпляр класса для popupEditAvatar
 const popupWithAvatarForm = new PopupWithForm({
   popupSelector: '.popup_type_edit-avatar',
   handleFormSubmit: (formData) => {
-    /*api.sendUserAvatar(formData);*/
-    userAvatar.src = formData.avatarLink;
+    api.sendUserAvatar(formData)
+    .then((data) => {
+      userAvatar.src = data.avatar;
+    })
 
     popupWithAvatarForm.close();
   }
