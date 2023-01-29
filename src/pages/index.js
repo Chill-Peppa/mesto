@@ -20,7 +20,9 @@ import {
   formPopupAdd,
   elementContainer,
   buttonEditAvatar,
-  userAvatar
+  userAvatar,
+  profileName,
+  profileJob
 } from '../utils/constants.js';
 
 
@@ -60,17 +62,40 @@ buttonEditAvatar.addEventListener('click', () => {
 
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
-//получаем карточки с сервера (тут перебор)
+//получаем карточки с сервера
 const api = new Api(configApi);
+
 api.getAllCards().then((card) => {
   const cardList = new Section ({ renderer: (cardItem) => {
     cardList.addItem(createCard(cardItem));
   } 
-  }, elementContainer);
+}, elementContainer);
   
   cardList.renderItems(card);
   console.log(card);
-  });
+});
+
+//получим данные юзера с сервера
+api.getUserInfo()
+.then((formData) => {
+  console.log(formData);
+  profileName.textContent = formData.name;
+  profileJob.textContent = formData.about;
+  userAvatar.src = formData.avatar;
+});
+
+//Экземпляр класса для popupAdd + карточки теперь добавляются на сервер
+const popupWithAddForm = new PopupWithForm({ 
+  popupSelector: '.popup_type_add-photo', 
+  handleFormSubmit: (formData) => {
+    api.postCard(formData);
+
+    elementContainer.prepend(createCard(formData));
+    popupWithAddForm.close();
+  }
+});
+
+popupWithAddForm.setEventListeners();
 
 //Экземпляр класса popupPhoto
 const imagePopup = new PopupWithImage({ popupSelector: '.popup_type_open-photo' });
@@ -91,19 +116,6 @@ const popupWithEditForm = new PopupWithForm({
 });
 
 popupWithEditForm.setEventListeners();
-
-//Экземпляр класса для popupAdd + карточки теперь добавляются на сервер
-const popupWithAddForm = new PopupWithForm({ 
-  popupSelector: '.popup_type_add-photo', 
-  handleFormSubmit: (formData) => {
-    api.postCard(formData);
-
-    elementContainer.append(createCard(formData));
-    popupWithAddForm.close();
-  }
-});
-
-popupWithAddForm.setEventListeners();
 
 //экземпляр класса для popupEditAvatar (БЕЗ АПИ)
 const popupWithAvatarForm = new PopupWithForm({

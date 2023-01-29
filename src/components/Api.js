@@ -4,6 +4,18 @@ export default class Api {
         this._headers = headers;
     }
 
+    //GET с информацией пользователя с сервера
+    getUserInfo() {
+        return fetch(`${this._url}/v1/cohort-58/users/me`, {
+            headers: this._headers
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+    }
+
     //метод, чтобы получить карточки через запрос к серверу
     getAllCards() {
         return fetch(`${this._url}/v1/cohort-58/cards`, {
