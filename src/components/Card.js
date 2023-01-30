@@ -1,9 +1,9 @@
 export default class Card {
     
-    constructor({ data, ownerId, userId, templateSelector, handleCardClick }) {
+    constructor({ data, userId, templateSelector, handleCardClick }) {
         this._name = data.name;
         this._link = data.link;
-        this._ownerId = ownerId //айди пользователя
+        this._ownerId = data.owner._id; //тут айди юзера
         this._userId = userId;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
@@ -33,11 +33,8 @@ export default class Card {
 
     //проверка кнопки удаления (если айди не совпал - спрятать кнопку)
     _checkButtonDelete() {
-        if (this._ownerId !== this._userId) {
-            console.log(this._ownerId)
+        if (this._ownerId  !== this._userId) {
             this._deleteBtn.classList.add('element__delete-btn_disabled');
-        } else {
-            this._deleteBtn.classList.remove('element__delete-btn_disabled');
         }
     }
 

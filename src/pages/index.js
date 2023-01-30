@@ -26,14 +26,12 @@ import {
   profileJob
 } from '../utils/constants.js';
 
-
       /*----------ФУНКЦИИ----------*/
 
 //создание экземпляра карточки
 const createCard = (cardItem) => {
   const card = new Card({ 
-    data: cardItem, 
-    ownerId: 'b2340a94dbdead81a297440f',
+    data: cardItem,
     userId: userId,
     templateSelector: '#element-template', 
     handleCardClick: () => {
@@ -86,15 +84,17 @@ api.getUserInfo()
   profileName.textContent = formData.name;
   profileJob.textContent = formData.about;
   userAvatar.src = formData.avatar;
+  console.log(formData)
 });
 
 //карточки теперь добавляются на сервер
 const popupWithAddForm = new PopupWithForm({ 
   popupSelector: '.popup_type_add-photo', 
   handleFormSubmit: (formData) => {
-    api.postCard(formData);
-
-    elementContainer.prepend(createCard(formData));
+    api.postCard(formData)
+    .then((data) => {
+      elementContainer.prepend(createCard(data));
+    });
     popupWithAddForm.close();
   }
 });
@@ -133,7 +133,6 @@ const popupWithAvatarForm = new PopupWithForm({
     api.sendUserAvatar(formData)
     .then((data) => {
       userAvatar.src = data.avatar;
-      console.log(data)
     })
     .catch((err) => {
       console.error(`Всё идёт не по плану. Ошибка: ${err}`);
