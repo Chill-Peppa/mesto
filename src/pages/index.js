@@ -7,7 +7,8 @@ import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js'
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupDeleteCard from '../components/PopupDeleteCard.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
 
@@ -26,16 +27,43 @@ import {
   profileJob
 } from '../utils/constants.js';
 
+
+let userId; //позже ей присвоится айди юзера
+
       /*----------ФУНКЦИИ----------*/
 
 //создание экземпляра карточки
-const createCard = (cardItem) => {
+/*const createCard = (cardItem) => {
   const card = new Card({ 
     data: cardItem,
     userId: userId,
     templateSelector: '#element-template', 
     handleCardClick: () => {
       imagePopup.open(cardItem);
+    }
+  });
+
+  return card.generateCard();
+}*/
+
+const createCard = (cardItem) => {
+
+  const card = new Card({ 
+    data: cardItem,
+    userId: userId,
+    templateSelector: '#element-template', 
+    handleCardClick: () => {
+      imagePopup.open(cardItem);
+    },
+    handleCardRemove: (id) => {
+      confirmPopup.open();
+      confirmPopup.setCallback(() => {
+        api.deleteCard(id)
+        .then(() => {
+          card.delete();
+          console.log("dlt");
+        })
+      })
     }
   });
 
@@ -76,7 +104,6 @@ api.getAllCards().then((card) => {
   console.log(card);
 });
 
-let userId;
 //получим данные юзера с сервера
 api.getUserInfo()
 .then((formData) => {
@@ -104,6 +131,10 @@ popupWithAddForm.setEventListeners();
 //Экземпляр класса popupPhoto
 const imagePopup = new PopupWithImage({ popupSelector: '.popup_type_open-photo' });
 imagePopup.setEventListeners();
+
+//экземпляр класса для попапа подтверждения удаления
+const confirmPopup = new PopupDeleteCard({ popupSelector: '.popup_type_delete' });
+confirmPopup.setEventListeners();
 
 //Экземпляр класса для данных юзера
 const userData = new UserInfo({
@@ -135,7 +166,7 @@ const popupWithAvatarForm = new PopupWithForm({
       userAvatar.src = data.avatar;
     })
     .catch((err) => {
-      console.error(`Всё идёт не по плану. Ошибка: ${err}`);
+      console.error(`Ошибка: ${err}`);
     });
 
     popupWithAvatarForm.close();

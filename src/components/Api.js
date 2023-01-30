@@ -56,11 +56,12 @@ export default class Api {
         })
     }
 
-    //удаление карточки
-    deleteCard(id) {
-        return fetch(`${this._url}/v1/cohort-58/cards/${id}`, {
+    //метод отправки аватара юзера на сервер
+    sendUserAvatar(data) {
+        return fetch(`${this._url}/v1/cohort-58/users/me/avatar`, {
             headers: this._headers,
-            method: 'DELETE'
+            method: 'PATCH',
+            body: JSON.stringify(data)
         })
         .then((res) => {
             if (res.ok) {
@@ -69,12 +70,11 @@ export default class Api {
         })
     }
 
-    //метод отправки аватара юзера на сервер
-    sendUserAvatar(data) {
-        return fetch(`${this._url}/v1/cohort-58/users/me/avatar`, {
+    //метод на удаление карточки
+    deleteCard(id) {
+        return fetch(`${this._url}/v1/cohort-58/cards/${id}`, {
             headers: this._headers,
-            method: 'PATCH',
-            body: JSON.stringify(data)
+            method: 'DELETE'
         })
         .then((res) => {
             if (res.ok) {

@@ -1,12 +1,14 @@
 export default class Card {
     
-    constructor({ data, userId, templateSelector, handleCardClick }) {
+    constructor({ data, userId, templateSelector, handleCardClick, handleCardRemove }) {
         this._name = data.name;
         this._link = data.link;
         this._ownerId = data.owner._id; //тут айди юзера
+        this._cardId = data._id;
         this._userId = userId;
         this._templateSelector = templateSelector;
         this._handleCardClick = handleCardClick;
+        this._handleCardRemove = handleCardRemove;
     }
     
     //метод, чтобы вернуть разметку
@@ -25,15 +27,10 @@ export default class Card {
         this._likeBtn.classList.toggle('element-container__like-btn_active');
     }
 
-    //метод удаления карточки
-    _handleRemoveCard() {
-        this._element.remove();
-        this._element = null;
-    }
-
     //проверка кнопки удаления (если айди не совпал - спрятать кнопку)
     _checkButtonDelete() {
-        if (this._ownerId  !== this._userId) {
+        if (this._ownerId !== /*'e3e979c55b8ed786a2075f89'*/this._userId) {
+            console.log(this._userId)
             this._deleteBtn.classList.add('element__delete-btn_disabled');
         }
     }
@@ -43,12 +40,20 @@ export default class Card {
         this._likeBtn.addEventListener('click', () => {
             this._handleLikeCard();
         });
-        this._deleteBtn.addEventListener('click', () => {
+        /*this._deleteBtn.addEventListener('click', () => {
             this._handleRemoveCard();
+        });*/
+        this._deleteBtn.addEventListener('click', () => {
+            this._handleCardRemove(this._cardId);
         });
+
         this._cardImg.addEventListener('click', () => {
             this._handleCardClick(); 
         });
+    }
+
+    delete() {
+        this._element.remove();
     }
 
     generateCard() {
