@@ -9,8 +9,6 @@
 @media screen and (max-width: 660px) {
   .profile__avatar {
     margin: 0 auto;
-    margin-top: 40px;
-    margin-bottom: 28px;
     flex-direction: column;
     transform: none;
   }

@@ -27,9 +27,6 @@ import {
   profileJob
 } from '../utils/constants.js';
 
-
-let userId; //позже ей присвоится айди юзера
-
       /*----------ФУНКЦИИ----------*/
 
 //создание экземпляра карточки
@@ -61,7 +58,6 @@ const createCard = (cardItem) => {
         api.deleteCard(id)
         .then(() => {
           card.delete();
-          console.log("dlt");
         })
       })
     }
@@ -91,8 +87,8 @@ buttonEditAvatar.addEventListener('click', () => {
 
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
-//получаем карточки с сервера
-const api = new Api(configApi);
+//получаем карточки
+/*const api = new Api(configApi);
 
 api.getAllCards().then((card) => {
   const cardList = new Section ({ renderer: (cardItem) => {
@@ -102,17 +98,39 @@ api.getAllCards().then((card) => {
   
   cardList.renderItems(card);
   console.log(card);
-});
+});*/
 
 //получим данные юзера с сервера
-api.getUserInfo()
+/*api.getUserInfo()
 .then((formData) => {
   userId = formData._id;
   profileName.textContent = formData.name;
   profileJob.textContent = formData.about;
   userAvatar.src = formData.avatar;
   console.log(formData)
-});
+});*/
+const api = new Api(configApi);
+
+//получаем карточки и данные юзера с сервера вместе
+
+//массив с карточками
+const cardList = new Section ({ 
+  renderer: (cardItem) => {
+    cardList.addItem(createCard(cardItem));
+  } 
+}, elementContainer);
+
+let userId;
+Promise.all([ api.getAllCards(), api.getUserInfo() ])
+.then(([card, formData]) => {
+  userId = formData._id;
+  cardList.renderItems(card);
+  profileName.textContent = formData.name;
+  profileJob.textContent = formData.about;
+  userAvatar.src = formData.avatar;
+  console.log(card);
+  console.log(formData)
+})
 
 //карточки теперь добавляются на сервер
 const popupWithAddForm = new PopupWithForm({ 
@@ -148,7 +166,6 @@ const popupWithEditForm = new PopupWithForm({
     api.updateUserInfo(formData)
     .then((items) => {
       userData.setUserInfo(items); //записали новые значения
-      console.log(items);
     })
     
     popupWithEditForm.close();
