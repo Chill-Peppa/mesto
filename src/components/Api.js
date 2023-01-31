@@ -82,4 +82,30 @@ export default class Api {
             }
         })
     }
+
+    //метод чтобы поставить лайк
+    /*likeCard(id) {
+        return fetch(`${this._url}/v1/cohort-58/cards/${id}/likes `, {
+            headers: this._headers,
+            method: 'PUT'
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+    }
+
+    //метод чтобы убрать лайк
+    dislikeCard(id) {
+        return fetch(`${this._url}/v1/cohort-58/cards/${id}/likes `, {
+            headers: this._headers,
+            method: 'DELETE'
+        })
+        .then((res) => {
+            if (res.ok) {
+                return res.json()
+            }
+        })
+    }*/
 }
