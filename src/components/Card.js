@@ -78,19 +78,17 @@ export default class Card {
         this._likesLength.textContent = likeArr.length;
     }
 
-    //метод, чтобы проверить стоит ли лайк юзера + сохранение после загрузки
+    //метод, чтобы проверить стоит ли лайк юзера + его отображение после загрузки
     _checkUserLike() {
-        console.log('мой', this._userId)
-        //console.log(this._likesArray)
-        if (this._likesArray.some((like) => {
-            like._id == this._userId;
-            console.log(like._id)
-        })) {
+        //console.log('мой', this._userId)
+        if (this._likesArray.some(like => like._id === this._userId)) {
             this._likeBtn.classList.add('element-container__like-btn_active');
-            console.log(проверка)
+            //console.log('поставлен')
+        } else {
+            this._likeBtn.classList.remove('element-container__like-btn_active');
+            //console.log('не поставлен')
         }
     }
-
 
     generateCard() {
         this._element = this._getTemplate();
