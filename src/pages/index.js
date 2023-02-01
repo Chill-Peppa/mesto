@@ -151,13 +151,17 @@ Promise.all([ api.getAllCards(), api.getUserInfo() ])
 const popupWithAddForm = new PopupWithForm({ 
   popupSelector: '.popup_type_add-photo', 
   handleFormSubmit: (formData) => {
+    popupWithAddForm.renderLoading(true);
     api.postCard(formData)
     .then((data) => {
       elementContainer.prepend(createCard(data));
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
-    });
+    })
+    .finally(() => {
+      popupWithAddForm.renderLoading(false);
+    })
     popupWithAddForm.close();
   }
 });
@@ -181,13 +185,17 @@ const userData = new UserInfo({
 const popupWithEditForm = new PopupWithForm({
   popupSelector: '.popup_type_edit-button', 
   handleFormSubmit: (formData) => {
+    popupWithEditForm.renderLoading(true);
     api.updateUserInfo(formData)
     .then((items) => {
       userData.setUserInfo(items); //записали новые значения
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
-    });
+    })
+    .finally(() => {
+      popupWithEditForm.renderLoading(false);
+    })
 
     popupWithEditForm.close();
   }
@@ -199,13 +207,17 @@ popupWithEditForm.setEventListeners();
 const popupWithAvatarForm = new PopupWithForm({
   popupSelector: '.popup_type_edit-avatar',
   handleFormSubmit: (formData) => {
+    popupWithAvatarForm.renderLoading(true);
     api.sendUserAvatar(formData)
     .then((data) => {
       userAvatar.src = data.avatar;
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
-    });
+    })
+    .finally(() => {
+      popupWithAvatarForm.renderLoading(false);
+    })
 
     popupWithAvatarForm.close();
   }
