@@ -25,11 +25,6 @@ export default class Card {
         return cardElem;
     }
 
-    //метод тоггла лайка
-    /*_handleLikeCard() {
-        this._likeBtn.classList.toggle('element-container__like-btn_active');
-    }*/
-
     //проверка кнопки удаления (если айди не совпал - спрятать кнопку)
     _checkButtonDelete() {
         if (this._ownerId !== this._userId) {
@@ -39,15 +34,9 @@ export default class Card {
 
     //метод, в котором будут все слушатели
     _setEventListeners() {
-        /*this._likeBtn.addEventListener('click', () => {
-            this._handleLikeCard();
-        });*/
         this._likeBtn.addEventListener('click', () => {
             this._checkButtonLike();
         });
-        /*this._deleteBtn.addEventListener('click', () => {
-            this._handleRemoveCard();
-        });*/
         this._deleteBtn.addEventListener('click', () => {
             this._handleCardRemove(this._cardId);
         });
@@ -57,7 +46,7 @@ export default class Card {
         });
     }
 
-    delete() {
+    removeCard() {
         this._element.remove();
     }
 
@@ -102,7 +91,6 @@ export default class Card {
         this._checkUserLike();
 
         this._likesLength.textContent = this._likesArray.length; //чтобы количество отобразилось сразу на странице
-
         this._cardText.textContent = this._name;
         this._cardImg.src = this._link;
         this._cardImg.alt = this._name;

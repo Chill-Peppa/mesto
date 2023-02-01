@@ -27,6 +27,8 @@ import {
   profileJob
 } from '../utils/constants.js';
 
+let userId; 
+
       /*----------ФУНКЦИИ----------*/
 
 //создание экземпляра карточки
@@ -57,7 +59,7 @@ const createCard = (cardItem) => {
       confirmPopup.setCallback(() => {
         api.deleteCard(id)
         .then(() => {
-          card.delete();
+          card.removeCard();
         })
       })
     },
@@ -99,6 +101,7 @@ buttonEditAvatar.addEventListener('click', () => {
 
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
+const api = new Api(configApi);
 //получаем карточки
 /*const api = new Api(configApi);
 
@@ -121,9 +124,6 @@ api.getAllCards().then((card) => {
   userAvatar.src = formData.avatar;
   console.log(formData)
 });*/
-const api = new Api(configApi);
-
-//получаем карточки и данные юзера с сервера вместе
 
 //массив с карточками
 const cardList = new Section ({ 
@@ -132,7 +132,7 @@ const cardList = new Section ({
   } 
 }, elementContainer);
 
-let userId;
+//получаем карточки и данные юзера с сервера вместе
 Promise.all([ api.getAllCards(), api.getUserInfo() ])
 .then(([card, formData]) => {
   userId = formData._id;
@@ -140,9 +140,12 @@ Promise.all([ api.getAllCards(), api.getUserInfo() ])
   profileName.textContent = formData.name;
   profileJob.textContent = formData.about;
   userAvatar.src = formData.avatar;
-  //console.log(card);
+  console.log(card);
   //console.log(formData)
 })
+.catch((err) => {
+  console.error(`Ошибка: ${err}`);
+});
 
 //карточки теперь добавляются на сервер
 const popupWithAddForm = new PopupWithForm({ 
@@ -151,6 +154,9 @@ const popupWithAddForm = new PopupWithForm({
     api.postCard(formData)
     .then((data) => {
       elementContainer.prepend(createCard(data));
+    })
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
     });
     popupWithAddForm.close();
   }
@@ -179,7 +185,10 @@ const popupWithEditForm = new PopupWithForm({
     .then((items) => {
       userData.setUserInfo(items); //записали новые значения
     })
-    
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    });
+
     popupWithEditForm.close();
   }
   })

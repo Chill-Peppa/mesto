@@ -4,16 +4,18 @@ export default class Api {
         this._headers = headers;
     }
 
+    _returnResponse(res) {
+        if (res.ok) {
+            return res.json()
+        }
+    }
+
     //GET с информацией пользователя с сервера
     getUserInfo() {
         return fetch(`${this._url}/v1/cohort-58/users/me`, {
             headers: this._headers
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод, чтобы получить карточки через запрос к серверу
@@ -21,11 +23,7 @@ export default class Api {
         return fetch(`${this._url}/v1/cohort-58/cards`, {
             headers: this._headers
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
     
     //редактирование профиля
@@ -35,11 +33,7 @@ export default class Api {
             method: 'PATCH',
             body: JSON.stringify(data)
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод отправки карточки на сервер
@@ -49,11 +43,7 @@ export default class Api {
             method: 'POST',
             body: JSON.stringify(data)
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод отправки аватара юзера на сервер
@@ -63,11 +53,7 @@ export default class Api {
             method: 'PATCH',
             body: JSON.stringify(data)
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод на удаление карточки
@@ -76,11 +62,7 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE'
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод чтобы поставить лайк
@@ -89,11 +71,7 @@ export default class Api {
             headers: this._headers,
             method: 'PUT'
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 
     //метод чтобы убрать лайк
@@ -102,10 +80,6 @@ export default class Api {
             headers: this._headers,
             method: 'DELETE'
         })
-        .then((res) => {
-            if (res.ok) {
-                return res.json()
-            }
-        })
+        .then(this._returnResponse);
     }
 }
