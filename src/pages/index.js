@@ -60,6 +60,18 @@ const createCard = (cardItem) => {
           card.delete();
         })
       })
+    },
+    handleCardLike: (id) => {
+      api.likeCard(id)
+      .then((data) => {
+        card.likeCounter(data.likes)
+      })
+    },
+    handleCardDislike: (id) => {
+      api.dislikeCard(id)
+      .then((data) => {
+        card.likeCounter(data.likes)
+      })
     }
   });
 
@@ -128,8 +140,8 @@ Promise.all([ api.getAllCards(), api.getUserInfo() ])
   profileName.textContent = formData.name;
   profileJob.textContent = formData.about;
   userAvatar.src = formData.avatar;
-  console.log(card);
-  console.log(formData)
+  //console.log(card);
+  //console.log(formData)
 })
 
 //карточки теперь добавляются на сервер

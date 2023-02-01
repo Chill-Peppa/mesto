@@ -6,7 +6,7 @@ export default class Api {
 
     //GET с информацией пользователя с сервера
     getUserInfo() {
-        return fetch(`https://nomoreparties.co/v1/cohort-58/users/me`, {
+        return fetch(`${this._url}/v1/cohort-58/users/me`, {
             headers: this._headers
         })
         .then((res) => {
@@ -84,7 +84,7 @@ export default class Api {
     }
 
     //метод чтобы поставить лайк
-    /*likeCard(id) {
+    likeCard(id) {
         return fetch(`${this._url}/v1/cohort-58/cards/${id}/likes `, {
             headers: this._headers,
             method: 'PUT'
@@ -107,5 +107,5 @@ export default class Api {
                 return res.json()
             }
         })
-    }*/
+    }
 }
