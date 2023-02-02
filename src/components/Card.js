@@ -58,24 +58,20 @@ export default class Card {
             this._handleCardLike(this._cardId);
         }
 
-        this._likeBtn.classList.toggle('element-container__like-btn_active');
-
     }
 
     //метод-счетчик лайков
     likeCounter(likeArr) {
+        this._likeBtn.classList.toggle('element-container__like-btn_active');
         this._likesLength.textContent = likeArr.length;
     }
 
     //метод, чтобы проверить стоит ли лайк юзера + его отображение после загрузки
     _checkUserLike() {
-        //console.log('мой', this._userId)
         if (this._likesArray.some(like => like._id === this._userId)) {
             this._likeBtn.classList.add('element-container__like-btn_active');
-            //console.log('поставлен')
         } else {
             this._likeBtn.classList.remove('element-container__like-btn_active');
-            //console.log('не поставлен')
         }
     }
 

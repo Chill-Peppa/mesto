@@ -46,6 +46,7 @@
 @import url("../blocks/form/form.css");
 @import url("../blocks/form/__item/form__item.css");
 @import url("../blocks/form/__button-submit/form__button-submit.css");
+@import url("../blocks/form/__button-submit/_error/form__button-submit_error.css");
 @import url("../blocks/form/__button-delete/form___button-delete.css");
 @import url("../blocks/form/__item-error/form__item-error.css");
 @import url("../blocks/form/__item-error/_active/form__item-error_active.css");

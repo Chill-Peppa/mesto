@@ -21,10 +21,7 @@ import {
   jobInput,
   formPopupAdd,
   elementContainer,
-  buttonEditAvatar,
-  userAvatar,
-  profileName,
-  profileJob
+  buttonEditAvatar
 } from '../utils/constants.js';
 
 let userId; 
@@ -32,19 +29,6 @@ let userId;
       /*----------ФУНКЦИИ----------*/
 
 //создание экземпляра карточки
-/*const createCard = (cardItem) => {
-  const card = new Card({ 
-    data: cardItem,
-    userId: userId,
-    templateSelector: '#element-template', 
-    handleCardClick: () => {
-      imagePopup.open(cardItem);
-    }
-  });
-
-  return card.generateCard();
-}*/
-
 const createCard = (cardItem) => {
 
   const card = new Card({ 
@@ -61,6 +45,9 @@ const createCard = (cardItem) => {
         .then(() => {
           card.removeCard();
         })
+        .catch((err) => {
+          console.error(`Ошибка: ${err}`);
+        })
       })
     },
     handleCardLike: (id) => {
@@ -68,11 +55,17 @@ const createCard = (cardItem) => {
       .then((data) => {
         card.likeCounter(data.likes)
       })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
+      })
     },
     handleCardDislike: (id) => {
       api.dislikeCard(id)
       .then((data) => {
         card.likeCounter(data.likes)
+      })
+      .catch((err) => {
+        console.error(`Ошибка: ${err}`);
       })
     }
   });
@@ -91,57 +84,34 @@ buttonEditProfile.addEventListener('click', () => {
 });
 
 buttonAddElem.addEventListener('click', () => {
-  resetValidationFormAdd.resetValidaition();
+  validationFormPopupAdd.resetValidaition();
   popupWithAddForm.open();
 });
 
 buttonEditAvatar.addEventListener('click', () => {
+  validationFormPopupEditAvatar.resetValidaition();
   popupWithAvatarForm.open();
 })
 
       /*---------ЭКЗЕМПЛЯРЫ КЛАССОВ---------*/
 
 const api = new Api(configApi);
-//получаем карточки
-/*const api = new Api(configApi);
-
-api.getAllCards().then((card) => {
-  const cardList = new Section ({ renderer: (cardItem) => {
-    cardList.addItem(createCard(cardItem));
-  } 
-}, elementContainer);
-  
-  cardList.renderItems(card);
-  console.log(card);
-});*/
-
-//получим данные юзера с сервера
-/*api.getUserInfo()
-.then((formData) => {
-  userId = formData._id;
-  profileName.textContent = formData.name;
-  profileJob.textContent = formData.about;
-  userAvatar.src = formData.avatar;
-  console.log(formData)
-});*/
 
 //массив с карточками
-const cardList = new Section ({ 
+const cardContainer = new Section ({ 
   renderer: (cardItem) => {
-    cardList.addItem(createCard(cardItem));
+    cardContainer.addItemAppend(createCard(cardItem));
   } 
 }, elementContainer);
 
 //получаем карточки и данные юзера с сервера вместе
 Promise.all([ api.getAllCards(), api.getUserInfo() ])
-.then(([card, formData]) => {
-  userId = formData._id;
-  cardList.renderItems(card);
-  profileName.textContent = formData.name;
-  profileJob.textContent = formData.about;
-  userAvatar.src = formData.avatar;
-  console.log(card);
-  //console.log(formData)
+.then(([cards, userArr]) => {
+  userId = userArr._id;
+  cardContainer.renderItems(cards);
+  userData.setUserInfo(userArr);
+  console.log(cards);
+  console.log(userArr);
 })
 .catch((err) => {
   console.error(`Ошибка: ${err}`);
@@ -154,7 +124,8 @@ const popupWithAddForm = new PopupWithForm({
     popupWithAddForm.renderLoading(true);
     api.postCard(formData)
     .then((data) => {
-      elementContainer.prepend(createCard(data));
+      cardContainer.prependItem(createCard(data));
+      popupWithAddForm.close();
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
@@ -162,7 +133,6 @@ const popupWithAddForm = new PopupWithForm({
     .finally(() => {
       popupWithAddForm.renderLoading(false);
     })
-    popupWithAddForm.close();
   }
 });
 
@@ -179,7 +149,9 @@ confirmPopup.setEventListeners();
 //Экземпляр класса для данных юзера
 const userData = new UserInfo({
   nameSelector: '.profile-info__name', 
-  infoSelector: '.profile-info__description' });
+  infoSelector: '.profile-info__description',
+  avatarSelector: '.profile__avatar'
+});
 
 //Экземпляр класса для popupEdit, связанный с сервером
 const popupWithEditForm = new PopupWithForm({
@@ -189,6 +161,7 @@ const popupWithEditForm = new PopupWithForm({
     api.updateUserInfo(formData)
     .then((items) => {
       userData.setUserInfo(items); //записали новые значения
+      popupWithEditForm.close();
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
@@ -196,8 +169,6 @@ const popupWithEditForm = new PopupWithForm({
     .finally(() => {
       popupWithEditForm.renderLoading(false);
     })
-
-    popupWithEditForm.close();
   }
   })
 
@@ -210,7 +181,8 @@ const popupWithAvatarForm = new PopupWithForm({
     popupWithAvatarForm.renderLoading(true);
     api.sendUserAvatar(formData)
     .then((data) => {
-      userAvatar.src = data.avatar;
+      userData.setUserInfo(data); //тут устанавливаем аватар
+      popupWithAvatarForm.close();
     })
     .catch((err) => {
       console.error(`Ошибка: ${err}`);
@@ -218,8 +190,6 @@ const popupWithAvatarForm = new PopupWithForm({
     .finally(() => {
       popupWithAvatarForm.renderLoading(false);
     })
-
-    popupWithAvatarForm.close();
   }
 })
 
@@ -234,8 +204,4 @@ validationFormPopupAdd.enableValidation();
 
 const validationFormPopupEditAvatar = new FormValidator(validationConf, formPopupEditAvatar);
 validationFormPopupEditAvatar.enableValidation();
-
-//Экземпляр класса для очистки форм от ошибок после ввода
-//и блокировки кнопки
-const resetValidationFormAdd = new FormValidator(validationConf, formPopupAdd);
 

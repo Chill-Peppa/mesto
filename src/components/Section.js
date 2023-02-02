@@ -1,9 +1,9 @@
 export default class Section {
 
-    constructor({ renderer }, containerSelector) {
+    constructor({ renderer }, containerForCards) {
         this._renderer = renderer;
         
-        this._container = containerSelector;
+        this._container = containerForCards;
     }
 
     //метод, который отвечает за отрисовку всех элементов
@@ -15,7 +15,11 @@ export default class Section {
     }
 
     //метод принимает DOM элемент и добавляет его в контейнер
-    addItem(element) {
+    addItemAppend(element) {
         this._container.append(element);
+    }
+
+    prependItem(element) {
+        this._container.prepend(element);
     }
 }

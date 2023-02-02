@@ -12,14 +12,11 @@ const popupEditAvatar = document.querySelector('.popup_type_edit-avatar');
 export const formPopupEdit = popupEdit.querySelector('.form');
 export const nameInput = formPopupEdit.querySelector('.form__item_info_name');
 export const jobInput = formPopupEdit.querySelector('.form__item_info_job');
-export const profileName = document.querySelector('.profile-info__name');
-export const profileJob = document.querySelector('.profile-info__description');
 
 //переменные для формы add
 export const formPopupAdd = popupAdd.querySelector('.form');
 
 //переменные для формы с аватаром
-export const userAvatar = document.querySelector('.profile__avatar');
 export const formPopupEditAvatar = popupEditAvatar.querySelector('.form');
 
 //переменные для карточек

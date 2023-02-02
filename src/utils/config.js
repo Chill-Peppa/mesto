@@ -8,7 +8,7 @@ export const validationConf = {
   }
 
 export const configApi = {
-  url: 'https://mesto.nomoreparties.co',
+  url: 'https://mesto.nomoreparties.co/v1/cohort-58',
   headers: {
     'Content-Type': 'application/json',
     authorization: 'fa0e36d5-ce77-4b43-9654-baaa45f07f34'

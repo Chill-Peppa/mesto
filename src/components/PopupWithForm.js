@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
         this._form = this._popup.querySelector('.form');
         this._inputList = this._form.querySelectorAll('.form__item');
         this._button = this._popup.querySelector('.form__button-submit');
+        this._buttonText = this._button.textContent;
     }
 
     //метод, который собирает данные со всех форм
@@ -20,11 +21,11 @@ export default class PopupWithForm extends Popup {
     }
 
     //функция лоудер при прогрузке данных
-    renderLoading(isLoading) {
+    renderLoading(isLoading, loadingText='Сохранение...') {
         if (isLoading) {
-            this._button.textContent = 'Сохранение...';
+            this._button.textContent = loadingText;
         } else {
-            this._button.textContent = 'Сохранить';
+            this._button.textContent = this._buttonText;
         }
     }
     

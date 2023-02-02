@@ -1,9 +1,7 @@
 import Popup from './Popup.js';
 
 export default class PopupDeleteCard extends Popup {
-    constructor({ popupSelector }) {
-        super({ popupSelector });
-    }
+    //конструктора нет, поскольку там был 1 параметр через супер
 
     //этот метод нужен, чтобы ему передать коллбек, который удалит карточку
     setCallback(handleFunctionDelete) {
@@ -15,7 +13,7 @@ export default class PopupDeleteCard extends Popup {
 
         this._confirmDeleteButton.addEventListener('click', () => {
             this._handleFunctionDelete();
-            this.close();
+            //this.close();
           });
 
         super.setEventListeners();
