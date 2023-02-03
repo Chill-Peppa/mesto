@@ -39,6 +39,7 @@
 .form{display:flex;flex-direction:column;margin:0;max-width:358px;padding:0;width:100%}
 .form__item{border:none;border-bottom:1px solid rgba(0,0,0,.2);font-family:inherit;font-size:14px;font-weight:400;line-height:1.2;max-width:358px;overflow:hidden;padding:0 0 9px;text-overflow:ellipsis;white-space:nowrap;width:100%}.form__item:focus{outline:none}@media screen and (max-width:552px){.form__item{max-width:238px;width:100%}}@media screen and (max-width:475px){.form__item{padding-bottom:10px}}
 .form__button-submit{background-color:#000;border:none;border-radius:2px;color:#fff;cursor:pointer;font-family:inherit;font-size:18px;font-style:normal;font-weight:400;height:50px;line-height:1.2;margin-top:16px;max-width:358px;padding:0;text-align:center;transition:opacity .4s ease-out;width:100%}.form__button-submit:hover{opacity:.8}@media screen and (max-width:600px){.form__button-submit{font-size:14px;height:46px;line-height:1.2;margin-top:19px}}
+.form__button-submit_error{background-color:#fff;border:1px solid #000;color:#000;opacity:.2;pointer-events:none}
 .form__button-delete{margin:0}
 .form__item-error{color:red;font-size:12px;font-weight:400;height:28px;line-height:1.2;margin-top:4px;opacity:0;padding:0;text-align:left}
 .form__item-error_active{opacity:1}
